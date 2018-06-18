@@ -33,12 +33,12 @@ public class Menu
 		//draw background
 		g.drawImage(l.background, 0, 0, null);
 
-		//TODO draw title
+		// draw title
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 175)); //Times New Roman font; size 200
 		g.setColor(Color.BLACK); //Black colored text
 		g.drawString("TANK GAME", titleX, titleY); //Constructs the text and draws it on panel
 		
-		//TODO draw high scores
+		// draw high scores
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 50)); //Times New Roman font; size 200
 
 		Color darkGreen = new Color(0, 102, 0);
@@ -48,7 +48,7 @@ public class Menu
 		g.setColor(darkBlue); //Black colored text
 		g.drawString("Survival high score = "+inSurvivalHighScore, scoreTextX, text2Y); //Constructs the text and draws it on panel
 
-		//TODO draw button to start classsic game
+		// draw button to start classsic game
 		g.setColor(Color.GRAY); //Red colored rectangle
 		g.fillRect(buttonX, button1Y, buttonWidth, buttonHeight); //Makes rectangle containing start button
 
@@ -58,7 +58,7 @@ public class Menu
 
 		
 		
-		//TODO draw button to start game mode 2
+		// draw button to start game mode 2
 		g.setColor(Color.GRAY); //Red colored rectangle
 		g.fillRect(buttonX, button2Y, buttonWidth, buttonHeight); //Makes rectangle containing start button
 

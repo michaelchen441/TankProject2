@@ -16,7 +16,7 @@ public class Explosion
 	private int objectSize;
 
 	public Explosion(int inX, int inY, ExplosionType inType){
-		//TODO switch based on inType to choose where to locate xLoc and yLoc
+
 		type = inType;
 
 		switch(type){
@@ -53,7 +53,7 @@ public class Explosion
 			doneDrawing = true; 
 		}
 		else{
-			//TODO switch based on type to change destination size
+			
 			g.drawImage(l.explosion,
 					xLoc, 
 					yLoc, 

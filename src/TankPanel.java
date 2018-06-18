@@ -274,7 +274,7 @@ public class TankPanel extends JPanel {
 					{
 						if(theMenu.clickedButton1(arg0.getX(), arg0.getY())){//classic game
 							inMenu = false;
-							level = 1;
+							level = 10;
 							
 						}
 						if(theMenu.clickedButton2(arg0.getX(), arg0.getY())){//survival mode
@@ -332,7 +332,7 @@ public class TankPanel extends JPanel {
 				@Override
 				public void mouseDragged(MouseEvent e)
 				{
-					// TODO Nothing
+				
 
 				}
 
@@ -427,19 +427,21 @@ public class TankPanel extends JPanel {
 		else{
 			if(level1FirstTime){
 
-				Arena survivalArena = new Arena(0, numWallsAcross, numWallsDown);
-				Arena level1Arena = new Arena(1, numWallsAcross, numWallsDown);
-				Arena level2Arena = new Arena(2, numWallsAcross, numWallsDown);
-				Arena level3Arena = new Arena(3, numWallsAcross, numWallsDown);
-				Arena level4Arena = new Arena(4, numWallsAcross, numWallsDown);
-				Arena level5Arena = new Arena(5, numWallsAcross, numWallsDown);
-				Arena level6Arena = new Arena(6, numWallsAcross, numWallsDown);
-				Arena level7Arena = new Arena(7, numWallsAcross, numWallsDown);
-				Arena level8Arena = new Arena(8, numWallsAcross, numWallsDown);
-				Arena level9Arena = new Arena(9, numWallsAcross, numWallsDown);
-				Arena level10Arena = new Arena(10, numWallsAcross, numWallsDown);
-				Arena level11Arena = new Arena(11, numWallsAcross, numWallsDown);
-				Arena level12Arena = new Arena(12, numWallsAcross, numWallsDown);
+				ArenaReader arenaReader = new ArenaReader("data/arenas/arena");
+				
+				Arena survivalArena = arenaReader.readArena(0, numWallsAcross, numWallsDown);
+				Arena level1Arena = arenaReader.readArena(1, numWallsAcross, numWallsDown);
+				Arena level2Arena = arenaReader.readArena(2, numWallsAcross, numWallsDown);
+				Arena level3Arena = arenaReader.readArena(3, numWallsAcross, numWallsDown);
+				Arena level4Arena = arenaReader.readArena(4, numWallsAcross, numWallsDown);
+				Arena level5Arena = arenaReader.readArena(5, numWallsAcross, numWallsDown);
+				Arena level6Arena = arenaReader.readArena(6, numWallsAcross, numWallsDown);
+				Arena level7Arena = arenaReader.readArena(7, numWallsAcross, numWallsDown);
+				Arena level8Arena = arenaReader.readArena(8, numWallsAcross, numWallsDown);
+				Arena level9Arena = arenaReader.readArena(9, numWallsAcross, numWallsDown);
+				Arena level10Arena = arenaReader.readArena(10, numWallsAcross, numWallsDown);
+				Arena level11Arena = arenaReader.readArena(11, numWallsAcross, numWallsDown);
+				Arena level12Arena = arenaReader.readArena(12, numWallsAcross, numWallsDown);
 
 				arenaList.add(survivalArena);
 				arenaList.add(level1Arena);
