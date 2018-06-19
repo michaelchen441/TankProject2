@@ -11,7 +11,7 @@ public class Arena
 {
 	int level; // Specifies which level and a specific arena 
 	// is drawn based on which level is passed in
-	int levelCount = 0;
+	int levelCount;
 	public Wall[][] walls; //List of all walls in the arena
 	//Every cell in the arena is can be made into a wall
 	// Remains null if no wall is created in the cell
@@ -19,6 +19,7 @@ public class Arena
 
 
 	int numTanksKilled;
+	int recentNumTanksKilled = 0;
 
 	//Note about TankList
 	//New Tanklist is created with the creation of a new arena
@@ -41,8 +42,9 @@ public class Arena
 	// Arena Constructor
 	public Arena(int inLevel, int inNumWallsAcross, int  inNumWallsDown) {
 		level = inLevel; // Sets up which level
-		levelCount = inLevel; //TODO delete
-		
+		levelCount = inLevel; 
+
+
 		// Sets up arena dimensions
 		numWallsAcross = inNumWallsAcross; 
 		numWallsDown = inNumWallsDown;
@@ -59,16 +61,16 @@ public class Arena
 
 
 		for(int r = 0; r < numWallsDown; r++){
-			transitionWalls[r][0] = new Wall(r, 0, false);
+			transitionWalls[r][0] = new Wall(r, 0, false, false);
 		}
 		for(int r = 0; r < numWallsDown; r++){
-			transitionWalls[r][numWallsAcross - 1] = new Wall(r, numWallsAcross - 1, false);
+			transitionWalls[r][numWallsAcross - 1] = new Wall(r, numWallsAcross - 1, false, false);
 		}
 		for(int c = 0; c < numWallsAcross; c++){
-			transitionWalls[0][c] =  new Wall(0, c, false);
+			transitionWalls[0][c] =  new Wall(0, c, false, false);
 		}
 		for(int c = 0; c < numWallsAcross; c++){
-			transitionWalls[numWallsDown - 1][c] =  new Wall(numWallsDown - 1, c, false);
+			transitionWalls[numWallsDown - 1][c] =  new Wall(numWallsDown - 1, c, false, false);
 		}
 
 
@@ -79,7 +81,7 @@ public class Arena
 		tankList = new ArrayList<Tank>();
 		// Adds player tank to arraylist of tanks to keep track of
 		tankList.add(playerTank);
-		
+
 		explosionList = new ArrayList<Explosion>();
 
 	}
@@ -169,7 +171,7 @@ public class Arena
 
 				//check each tank for dead
 				int numTanksAlive = 0;
-				numTanksKilled = 0;		// always recalc
+				numTanksKilled = 20;		// always recalc
 				for(int i = 1; i < tankList.size(); i++){
 					if (tankList.get(i).alive != true){
 						numTanksKilled++;
@@ -188,11 +190,12 @@ public class Arena
 						survivalAddTank();
 					}
 				}
-				
+
 				//TODO gradually delete inner walls
-//				if(numTanksKilled > 23 && numTanksKilled%3 == 0){
-//					deleteWall();
-//				}
+				if(numTanksKilled > 23 && numTanksKilled%2 == 0 && recentNumTanksKilled != numTanksKilled){
+					recentNumTanksKilled = numTanksKilled;
+					deleteWall();				
+				}
 
 			}
 			else{
@@ -211,26 +214,42 @@ public class Arena
 				}
 			}
 		}
-		
+
 
 	}
-	
+
+	private void deleteWall()
+	{
+		int row = (int) (Math.random()*numWallsDown);
+		int col = (int) (Math.random()*numWallsAcross);
+		
+		while(walls[row][col] == null || !walls[row][col].deletable){
+			row = (int) (Math.random()*numWallsDown);
+			col = (int) (Math.random()*numWallsAcross);
+		}
+		
+		walls[row][col] = null;
+		
+	}
+
+
+
 	public void addExplosion(int inX, int inY, ExplosionType inType){
 		explosionList.add(new Explosion(inX, inY, inType));
 	}
 
-//	private void deleteWall()
-//	{
-//		for(int r = 0; r < walls.length; r++){
-//			for(int c = 0; c < walls[r].length; c++){
-//				if(walls[r][c] != null){
-//					walls[r][c] = null;
-//					return;
-//				}
-//			}
-//		}
-//		
-//	}
+	//	private void deleteWall()
+	//	{
+	//		for(int r = 0; r < walls.length; r++){
+	//			for(int c = 0; c < walls[r].length; c++){
+	//				if(walls[r][c] != null){
+	//					walls[r][c] = null;
+	//					return;
+	//				}
+	//			}
+	//		}
+	//		
+	//	}
 	private void survivalAddTank()
 	{
 		//use tanklist to find quadrant to add to killed to get random
@@ -339,7 +358,7 @@ public class Arena
 		}
 		return false;
 	}
-	
+
 	private int getRandomQuadrant()
 	{
 		return ((int)(Math.random()*4))+1;
@@ -429,7 +448,7 @@ public class Arena
 		g.drawImage(l.blackTurret, xTurretImageLoc3, yTurretImageLoc3, null);
 
 		g2D3.setTransform(backupAT3);
-		
+
 		g.drawImage(l.whiteTank, 350, 440, null);	
 		Graphics2D	g2D4 = (Graphics2D)g;
 		AffineTransform	backupAT4 = g2D4.getTransform();
@@ -445,9 +464,9 @@ public class Arena
 		g.drawImage(l.whiteTurret, xTurretImageLoc4, yTurretImageLoc4, null);
 
 		g2D4.setTransform(backupAT4);
-		
-		
-		
+
+
+
 		g.drawImage(l.pinkTank, 350, 510, null);	
 		Graphics2D	g2D5 = (Graphics2D)g;
 		AffineTransform	backupAT5 = g2D5.getTransform();
@@ -463,10 +482,10 @@ public class Arena
 		g.drawImage(l.pinkTurret, xTurretImageLoc5, yTurretImageLoc5, null);
 
 		g2D5.setTransform(backupAT5);
-		
-		
-		
-		
+
+
+
+
 		g.drawImage(l.yellowTank, 350, 580, null);	
 		Graphics2D	g2D6 = (Graphics2D)g;
 		AffineTransform	backupAT6 = g2D6.getTransform();
@@ -486,7 +505,7 @@ public class Arena
 
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 45)); 
-		
+
 		int blueDestroyed = 0;
 		int redDestroyed = 0;
 		int blackDestroyed = 0;
@@ -521,7 +540,7 @@ public class Arena
 			pinkDestroyed = 0;
 			yellowDestroyed = 0;
 			invisibleDestroyed = 0;
-			
+
 		}
 		else if(levelCount == 4) {
 			blueDestroyed = 2;
@@ -604,7 +623,7 @@ public class Arena
 			yellowDestroyed = 2;
 			invisibleDestroyed = 2; 
 		}
-		
+
 
 		g.drawString(Integer.toString(blueDestroyed), 650, 272);
 		g.drawString(Integer.toString(redDestroyed), 650, 342);
@@ -621,7 +640,7 @@ public class Arena
 		g.drawString("x", 500, 552);
 		g.drawString("x", 500, 622);
 		g.drawString("x", 500, 692);
-		
+
 		g.drawString("=", 800, 272);
 		g.drawString("=", 800, 342);
 		g.drawString("=", 800, 412);
@@ -638,11 +657,11 @@ public class Arena
 		g.drawString(Integer.toString(yellowDestroyed * 100), 930, 622);
 		g.drawString(Integer.toString(invisibleDestroyed * 200), 930, 692);
 
-		
+
 
 		int totalScore = (blueDestroyed * 10) + (redDestroyed * 50) + (blackDestroyed * 125) + 
 				(whiteDestroyed * 150) + (pinkDestroyed * 75) + (yellowDestroyed * 100) + (invisibleDestroyed * 200);
-		
+
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 60));
 		g.drawString(Integer.toString(totalScore), 1133, 460);
 		g.drawString("Total Score", 1018, 400);
@@ -667,7 +686,7 @@ public class Arena
 	//Returns y location of playerTank
 	public int playerTankLocY() {return playerTank.getY();}
 	public ArrayList<Tank> getTanks() { return tankList;}
-	
+
 	public void addTank(int inRow, int inCol, TankType inType){
 		if(inType.equals(TankType.GREEN)){
 			playerTank.setX(inCol);
@@ -677,9 +696,9 @@ public class Arena
 			tankList.add(new AITank(inType, inCol, inRow, this));
 		}
 	}
-	
-	public void addWall(int inRow, int inCol, boolean destructable){
-		walls[inRow][inCol] = new Wall(inRow, inCol, destructable);
+
+	public void addWall(int inRow, int inCol, boolean destructable, boolean deletable){
+		walls[inRow][inCol] = new Wall(inRow, inCol, destructable, deletable);
 	}
 
 

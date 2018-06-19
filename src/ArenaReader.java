@@ -55,12 +55,16 @@ public class ArenaReader{
 				char c =  str.charAt(col);
 				switch (c){
 					case 'W':
+						arena.addWall(row, col, false, false);
+						break;
 					case 'w':
-						arena.addWall(row, col, false);
+						arena.addWall(row, col, false, true);
 						break;
 					case 'D':
+						arena.addWall(row, col, true, false);
+						break;
 					case 'd':
-						arena.addWall(row, col, true);
+						arena.addWall(row, col, true, true);
 						break;
 					case '0':
 						arena.addTank(row, col, TankType.GREEN);
