@@ -250,7 +250,7 @@ public class TankPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 
 
-				if(!inMenu){
+				if(!inMenu && !arenaList.get(level).transition){
 					arenaList.get(level).playerTank.fire(imageLibrary);
 				}
 			}
@@ -298,7 +298,7 @@ public class TankPanel extends JPanel {
 				public void mousePressed(MouseEvent e){
 
 					//create projectile if its in any level
-					if(!inMenu){
+					if(!inMenu && !arenaList.get(level).transition){
 						arenaList.get(level).playerTank.fire(imageLibrary);
 					}
 
