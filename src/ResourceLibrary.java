@@ -6,11 +6,13 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.sun.javafx.tk.Toolkit;
 
-public class ImageLibrary
+public class ResourceLibrary
 {
 
 	//create all images
@@ -41,7 +43,7 @@ public class ImageLibrary
 	public AudioInputStream audio1;
 
 	// constructed once in tank panel and sent to other classes as an imput in draw methods
-	public ImageLibrary()
+	public ResourceLibrary()
 	{
 		try
 		{
@@ -80,16 +82,10 @@ public class ImageLibrary
 
 
 		}
-		catch (IOException e){
+		catch (IOException | UnsupportedAudioFileException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		catch (UnsupportedAudioFileException e)	{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-
 	}
 
 	public void retrieveAudio(int i)
@@ -111,4 +107,23 @@ public class ImageLibrary
 
 	}
 
+	public void playClip(int i)
+	{
+		Clip clip = null;
+		retrieveAudio(1);
+		try
+		{
+			clip = AudioSystem.getClip();
+			clip.open(audio1);
+			clip.start();
+		} catch (LineUnavailableException | IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	
 }

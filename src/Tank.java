@@ -71,7 +71,7 @@ public abstract class Tank
 
 	}
 
-	public void draw(Graphics g, ImageLibrary l){
+	public void draw(Graphics g, ResourceLibrary l){
 		// draw projectiles	
 		for(Projectile p : stockPile) {
 			p.draw(g, l);
@@ -298,9 +298,9 @@ public abstract class Tank
 	 *In contrast AI Tank prompts its own location, aiming, and firing
 	 *AI Tank will probably utilize the playerTank's location and wall locations to prompt its own movement
 	 */
-	abstract void move(ImageLibrary l);
+	abstract void move(ResourceLibrary l);
 	abstract void aim();
-	abstract void fire(ImageLibrary l);
+	abstract void fire(ResourceLibrary l);
 	public int getX() {return xLoc;}
 	public int getY() {return yLoc;}
 

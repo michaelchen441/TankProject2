@@ -52,7 +52,7 @@ public class PlayerTank extends Tank
 	}
 
 	// Move function for tank; dependent on direction and inputMoveArr which depend on keys pressed
-	public void move(ImageLibrary l){
+	public void move(ResourceLibrary l){
 		//Everytime a tank moves, the number of times it has tried increments 
 		numMoveTries++;
 		//	if(touchingWallDirections().indexOf(Direction.NORTH)>-1)
@@ -122,7 +122,7 @@ public class PlayerTank extends Tank
 	}
 
 	//Firing method
-	public void fire(ImageLibrary l)
+	public void fire(ResourceLibrary l)
 	{
 
 		if(canFire) {
@@ -136,19 +136,8 @@ public class PlayerTank extends Tank
 				Projectile p = new Projectile(turretTopX,turretTopY, Math.atan2(-(targetY - turretCenterY), targetX - turretCenterX),type, arena);
 				stockPile.add(p);
 
+				l.playClip(1);
 				
-				Clip clip = null;
-				l.retrieveAudio(1);
-				try
-				{
-					clip = AudioSystem.getClip();
-					clip.open(l.audio1);
-					clip.start();
-				} catch (LineUnavailableException | IOException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				arena.addExplosion(turretTopX, turretTopY, ExplosionType.SMALL);
 
 

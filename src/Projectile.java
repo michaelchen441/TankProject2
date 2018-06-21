@@ -72,7 +72,7 @@ public class Projectile
 
 
 
-	void draw(Graphics g, ImageLibrary l){
+	void draw(Graphics g, ResourceLibrary l){
 
 		//draws black box projectile - use to test where image should be 
 		//g.setColor(Color.BLACK);
@@ -108,7 +108,7 @@ public class Projectile
 
 
 
-	void move(ImageLibrary l) {
+	void move(ResourceLibrary l) {
 		//		if(numDraws > 15){
 		//			return;
 		//		}

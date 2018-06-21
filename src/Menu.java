@@ -28,7 +28,7 @@ public class Menu
 	private int highScore; //Displays your highscore
 
 	//at some point make panels inMenu false
-	void draw(Graphics g, ImageLibrary l, int inSurvivalHighScore, int inClassicHighScore)
+	void draw(Graphics g, ResourceLibrary l, int inSurvivalHighScore, int inClassicHighScore)
 	{
 		//draw background
 		g.drawImage(l.background, 0, 0, null);

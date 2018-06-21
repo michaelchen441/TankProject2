@@ -101,7 +101,7 @@ public class AITank extends Tank //AI Tank is a specific type of Tank
 
 
 	//Need to figure out mechanism by which AI Tank Moves
-	void move(ImageLibrary l)
+	void move(ResourceLibrary l)
 	{
 		numMoveTries++;
 		player1 = new Point(arena.playerTankLocX(),  arena.playerTankLocY());
@@ -161,26 +161,15 @@ public class AITank extends Tank //AI Tank is a specific type of Tank
 
 	}
 	//Need to figure out mechanism by which AI Tank Fires
-	void fire(ImageLibrary l)
+	void fire(ResourceLibrary l)
 	{
 		for(int i = 0; i < stockPile.size(); i++){
 			if (!stockPile.get(i).active){
 				stockPile.remove(i); //Removes missile from stockpile
 				i--;
 				
-			
-				Clip clip = null;
-				l.retrieveAudio(1);
-				try
-				{
-					clip = AudioSystem.getClip();
-					clip.open(l.audio1);
-				} catch (LineUnavailableException | IOException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				clip.start();
+				l.playClip(1);
+				
 			}
 		}
 		

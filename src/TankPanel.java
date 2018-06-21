@@ -58,7 +58,7 @@ public class TankPanel extends JPanel {
 	int latestScoreClassic = 0;
 
 
-	ImageLibrary imageLibrary = new ImageLibrary();
+	ResourceLibrary resourceLibrary = new ResourceLibrary();
 
 	int crosshairX;
 	int crosshairY;
@@ -250,8 +250,8 @@ public class TankPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 
 
-				if(!inMenu && !arenaList.get(level).transition){
-					arenaList.get(level).playerTank.fire(imageLibrary);
+				if(!inMenu && !arenaList.get(level).transition && inGameOverScreen){
+					arenaList.get(level).playerTank.fire(resourceLibrary);
 				}
 			}
 		});
@@ -298,8 +298,8 @@ public class TankPanel extends JPanel {
 				public void mousePressed(MouseEvent e){
 
 					//create projectile if its in any level
-					if(!inMenu && !arenaList.get(level).transition){
-						arenaList.get(level).playerTank.fire(imageLibrary);
+					if(!inMenu && !arenaList.get(level).transition && !inGameOverScreen){
+						arenaList.get(level).playerTank.fire(resourceLibrary);
 					}
 
 				}
@@ -421,7 +421,7 @@ public class TankPanel extends JPanel {
 		}
 
 		if (inMenu){
-			theMenu.draw(g, imageLibrary, highScore.getHighScoreSurvival(), highScore.getHighScoreClassic());
+			theMenu.draw(g, resourceLibrary, highScore.getHighScoreSurvival(), highScore.getHighScoreClassic());
 		}
 		else{
 			if(level1FirstTime){
@@ -475,7 +475,7 @@ public class TankPanel extends JPanel {
 				
 				inGameOverScreen = true;
 				gameOverScreen = new GameOver(latestScoreClassic, level, true, false);
-				gameOverScreen.draw(g, imageLibrary);
+				gameOverScreen.draw(g, resourceLibrary);
 				
 //				cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 //				blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
@@ -514,12 +514,12 @@ public class TankPanel extends JPanel {
 				
 				
 				inGameOverScreen = true;
-				gameOverScreen.draw(g, imageLibrary);
+				gameOverScreen.draw(g, resourceLibrary);
 				cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 				blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
 						cursorImg, new Point(0, 0), "blank cursor");
 				frame.getContentPane().setCursor(blankCursor);
-				g.drawImage(imageLibrary.crosshair, crosshairX-10, crosshairY-10, null);
+				g.drawImage(resourceLibrary.crosshair, crosshairX-10, crosshairY-10, null);
 				return;
 			}
 
@@ -529,7 +529,7 @@ public class TankPanel extends JPanel {
 			}
 
 
-			currentArena.moveTanks(imageLibrary);
+			currentArena.moveTanks(resourceLibrary);
 
 
 			int playerTankX = currentArena.playerTank.getX();
@@ -541,7 +541,7 @@ public class TankPanel extends JPanel {
 			}
 			currentArena.playerTank.setTurretAngleByTarget(crosshairX, crosshairY);
 
-			currentArena.draw(g, imageLibrary);
+			currentArena.draw(g, resourceLibrary);
 
 			//	g.setColor(Color.WHITE);		
 			//g.drawLine(arenaList.get(level).playerTankLocX()+25, arenaList.get(level).playerTankLocY()+25, crosshairX, crosshairY);
@@ -549,7 +549,7 @@ public class TankPanel extends JPanel {
 
 		}
 
-		g.drawImage(imageLibrary.crosshair, crosshairX-10, crosshairY-10, null);
+		g.drawImage(resourceLibrary.crosshair, crosshairX-10, crosshairY-10, null);
 
 
 

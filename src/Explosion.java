@@ -47,7 +47,7 @@ public class Explosion
 	}
 
 
-	public void draw(Graphics g, ImageLibrary l){
+	public void draw(Graphics g, ResourceLibrary l){
 
 		if(frameCount >= 12){
 			doneDrawing = true; 

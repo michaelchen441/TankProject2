@@ -88,7 +88,7 @@ public class Arena
 
 
 
-	public void moveTanks(ImageLibrary l){
+	public void moveTanks(ResourceLibrary l){
 		if(!transition){
 			for(Tank tank: tankList){
 				tank.move(l);
@@ -102,7 +102,7 @@ public class Arena
 	}
 
 	// Arena draw method
-	public void draw(Graphics g, ImageLibrary l) {
+	public void draw(Graphics g, ResourceLibrary l) {
 		timer++;
 		// draws wood panel background image
 		g.drawImage(l.background,0,0,null);
@@ -396,7 +396,7 @@ public class Arena
 		return null;
 	}
 
-	private void drawTransition(Graphics g, ImageLibrary l)
+	private void drawTransition(Graphics g, ResourceLibrary l)
 	{
 		g.drawImage(l.blueTank, 350, 230, null);	
 		Graphics2D	g2D = (Graphics2D)g;

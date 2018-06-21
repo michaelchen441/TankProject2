@@ -27,7 +27,7 @@ public class Wall
 	}
 
 
-	void draw(Graphics g, ImageLibrary l){
+	void draw(Graphics g, ResourceLibrary l){
 		//Draws destructable wall
 		if(destructable){
 			g.drawImage(l.destructableWall, xLoc, yLoc, null);		

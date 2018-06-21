@@ -20,7 +20,7 @@ public class GameOver {
 	}
 
 
-	public void draw(Graphics g, ImageLibrary l)
+	public void draw(Graphics g, ResourceLibrary l)
 	{
 
 		g.drawImage(l.background, 0, 0, null);
