@@ -298,9 +298,9 @@ public abstract class Tank
 	 *In contrast AI Tank prompts its own location, aiming, and firing
 	 *AI Tank will probably utilize the playerTank's location and wall locations to prompt its own movement
 	 */
-	abstract void move();
+	abstract void move(ImageLibrary l);
 	abstract void aim();
-	abstract void fire();
+	abstract void fire(ImageLibrary l);
 	public int getX() {return xLoc;}
 	public int getY() {return yLoc;}
 

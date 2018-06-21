@@ -88,13 +88,13 @@ public class Arena
 
 
 
-	public void moveTanks(){
+	public void moveTanks(ImageLibrary l){
 		if(!transition){
 			for(Tank tank: tankList){
-				tank.move();
+				tank.move(l);
 				if(tank.type != TankType.GREEN) {
 
-					tank.fire();
+					tank.fire(l);
 
 				}
 			}

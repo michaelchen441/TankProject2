@@ -66,8 +66,7 @@ public class TankPanel extends JPanel {
 	//	private BufferedImage indestructableWall;
 
 
-	Timer timer = new Timer(1,null);
-
+	Timer timer = new Timer(10,null);
 
 	static BufferedImage cursorImg;
 	static Cursor blankCursor;
@@ -252,7 +251,7 @@ public class TankPanel extends JPanel {
 
 
 				if(!inMenu){
-					arenaList.get(level).playerTank.fire();
+					arenaList.get(level).playerTank.fire(imageLibrary);
 				}
 			}
 		});
@@ -300,7 +299,7 @@ public class TankPanel extends JPanel {
 
 					//create projectile if its in any level
 					if(!inMenu){
-						arenaList.get(level).playerTank.fire();
+						arenaList.get(level).playerTank.fire(imageLibrary);
 					}
 
 				}
@@ -530,7 +529,7 @@ public class TankPanel extends JPanel {
 			}
 
 
-			currentArena.moveTanks();
+			currentArena.moveTanks(imageLibrary);
 
 
 			int playerTankX = currentArena.playerTank.getX();

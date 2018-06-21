@@ -108,7 +108,7 @@ public class Projectile
 
 
 
-	void move() {
+	void move(ImageLibrary l) {
 		//		if(numDraws > 15){
 		//			return;
 		//		}
