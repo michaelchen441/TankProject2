@@ -486,6 +486,7 @@ public class TankPanel extends JPanel {
 				return;
 			}
 			if(currentArena.playerTank.alive == false){//tests if player lost by dying
+				resourceLibrary.playClip(9);
 				if(level == 0){
 					
 					latestScoreSurvival = currentArena.numTanksKilled; 

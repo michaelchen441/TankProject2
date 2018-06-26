@@ -73,6 +73,8 @@ public abstract class Tank
 
 	public void draw(Graphics g, ResourceLibrary l){
 		// draw projectiles	
+		
+		
 		for(Projectile p : stockPile) {
 			p.draw(g, l);
 		}
