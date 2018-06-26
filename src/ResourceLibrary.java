@@ -41,6 +41,7 @@ public class ResourceLibrary
 	public BufferedImage yellowTurret;
 
 	public AudioInputStream proj_to_wall;
+	public AudioInputStream projRicochet;
 	public AudioInputStream proj_to_proj;
 	public AudioInputStream proj_to_destructableWall;
 	public AudioInputStream tankFiring;
@@ -48,6 +49,7 @@ public class ResourceLibrary
 	public AudioInputStream backgroundSurvival;
 	public AudioInputStream gameOver;
 	public AudioInputStream proj_to_aiTank;
+	public AudioInputStream progressLevel;
 	
 
 	// constructed once in tank panel and sent to other classes as an imput in draw methods
@@ -102,7 +104,7 @@ public class ResourceLibrary
 		case 1: 
 			try
 			{
-				proj_to_wall = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/proj_to_wall.wav"));
+				projRicochet = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/projRicochet.wav"));
 			} catch (UnsupportedAudioFileException | IOException e)
 			{
 				// TODO Auto-generated catch block
@@ -149,6 +151,16 @@ public class ResourceLibrary
 				e.printStackTrace();
 			}
 			break;
+		case 6:
+			try
+			{
+				progressLevel = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/progressLevel.wav"));
+			} catch (UnsupportedAudioFileException | IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
 			
 		}
 
@@ -164,7 +176,7 @@ public class ResourceLibrary
 			clip = AudioSystem.getClip();
 			switch(i){
 			case 1: 
-				clip.open(proj_to_wall);
+				clip.open(projRicochet);
 				break;
 			case 2:
 				clip.open(proj_to_destructableWall);
@@ -177,6 +189,9 @@ public class ResourceLibrary
 				break;
 			case 5:
 				clip.open(backgroundSurvival);
+				break;
+			case 6:
+				clip.open(progressLevel);
 				break;
 			
 			}
