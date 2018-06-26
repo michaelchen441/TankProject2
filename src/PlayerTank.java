@@ -124,7 +124,7 @@ public class PlayerTank extends Tank
 	//Firing method
 	public void fire(ResourceLibrary l)
 	{
-
+		//tank firing sound
 		if(canFire) {
 			//Checks to see if the tank has any ammo left in the stockpile to fire
 			if(stockPile.size() < 5) {
@@ -135,8 +135,6 @@ public class PlayerTank extends Tank
 
 				Projectile p = new Projectile(turretTopX,turretTopY, Math.atan2(-(targetY - turretCenterY), targetX - turretCenterX),type, arena);
 				stockPile.add(p);
-
-				l.playClip(1);
 				
 				arena.addExplosion(turretTopX, turretTopY, ExplosionType.SMALL);
 

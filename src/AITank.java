@@ -163,12 +163,11 @@ public class AITank extends Tank //AI Tank is a specific type of Tank
 	//Need to figure out mechanism by which AI Tank Fires
 	void fire(ResourceLibrary l)
 	{
+		//tank firing sound
 		for(int i = 0; i < stockPile.size(); i++){
 			if (!stockPile.get(i).active){
 				stockPile.remove(i); //Removes missile from stockpile
 				i--;
-				
-				l.playClip(1);
 				
 			}
 		}
