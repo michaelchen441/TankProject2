@@ -163,6 +163,7 @@ public class AITank extends Tank //AI Tank is a specific type of Tank
 	//Need to figure out mechanism by which AI Tank Fires
 	void fire(ResourceLibrary l)
 	{
+		
 		//tank firing sound
 		for(int i = 0; i < stockPile.size(); i++){
 			if (!stockPile.get(i).active){
@@ -212,8 +213,8 @@ public class AITank extends Tank //AI Tank is a specific type of Tank
 
 				Projectile p = new Projectile(turretTopX, turretTopY, Math.atan2(-(targetY - turretCenterY), targetX - turretCenterX),type, arena);
 				stockPile.add(p);
+				l.playClip(3);
 
-				l.playClip(1);
 				
 				arena.addExplosion(turretTopX, turretTopY, ExplosionType.SMALL);
 			}			
@@ -222,7 +223,7 @@ public class AITank extends Tank //AI Tank is a specific type of Tank
 		}
 
 		intersect = false;
-
+		
 	}
 	public int orientation(Point p, Point q, Point r) {
 		double val = (q.getY() - p.getY()) * (r.getX() - q.getX())

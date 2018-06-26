@@ -179,7 +179,7 @@ public class ResourceLibrary
 	public void playClip(int i)
 	{
 		Clip clip = null;
-		retrieveAudio(1);
+		retrieveAudio(i);
 	
 		try
 		{

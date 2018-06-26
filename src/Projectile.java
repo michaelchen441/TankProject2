@@ -169,6 +169,7 @@ public class Projectile
 
 		if(!active){
 			myArena.addExplosion((int)xLoc, (int)yLoc, ExplosionType.MEDIUM);	//call arena addExplosion
+			l.playClip(7);
 		}
 
 
@@ -252,14 +253,15 @@ public class Projectile
 								if( (int)yLoc > (r*50) && (int)yLoc < (r*50)+50) {
 									numWallHits++;
 									angle = Math.PI-angle;
+									
 									if(angle < 0) {
-										l.playClip(1);
 										angle += 2*Math.PI;
 									}
 									if(walls[r][c].destructable)
 									{
 										walls[r][c] = null;
 										active = false;
+										l.playClip(2);
 									}
 									return;
 								}
@@ -268,14 +270,15 @@ public class Projectile
 								if( (int)xLoc > (c*50) && (int)xLoc < (c*50)+50) {
 									numWallHits++;
 									angle = angle * -1;
+									
 									if(angle < 0) {
-										l.playClip(1);
 										angle += 2*Math.PI;
 									}
 									if(walls[r][c].destructable)
 									{
 										walls[r][c] = null;
 										active = false;
+										l.playClip(2);
 									}
 									return;
 								}
@@ -285,14 +288,15 @@ public class Projectile
 								if( (int)yLoc > (r*50) && (int)yLoc < (r*50)+50) {
 									numWallHits++;
 									angle = Math.PI-angle;
+									
 									if(angle < 0) {
-										l.playClip(1);
 										angle += 2*Math.PI;
 									}
 									if(walls[r][c].destructable)
 									{
 										walls[r][c] = null;
 										active = false;
+										l.playClip(2);
 									}
 									return;
 								}
@@ -301,15 +305,16 @@ public class Projectile
 							if( (int)yLoc > ((r*50)-speed) && (int)yLoc < (r*50)+speed) //adds speed because parametric movement can skip pixels 
 								if( (int)xLoc > (c*50) && (int)xLoc < (c*50)+50) {
 									numWallHits++;
+									
 									angle = angle *-1;
 									if(angle < 0) {
-										l.playClip(1);
 										angle += 2*Math.PI;
 									}
 									if(walls[r][c].destructable)
 									{
 										walls[r][c] = null;
 										active = false;
+										l.playClip(2);
 									}
 									return;
 								}
