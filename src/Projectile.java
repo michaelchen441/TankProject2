@@ -119,7 +119,7 @@ public class Projectile
 	void move(ResourceLibrary l) {
 		if(active) {
 			numMoveTries++;
-			if(!detectTanks()) {
+			if(!detectTanks(l)) {
 				detectWalls(l);
 				if(numMoveTries%projectileSlowMultiplier == 0) 
 					xLoc+=speed*Math.cos(-angle);//used negative angle to convert from normal math axis to screen axis
@@ -147,7 +147,7 @@ public class Projectile
 
 
 
-	private boolean detectTanks() {
+	private boolean detectTanks(ResourceLibrary l) {
 		ArrayList<Tank> tankList = myArena.getTanks();
 		Direction dir = getDirection();
 		for(Tank t : tankList) {
@@ -159,6 +159,9 @@ public class Projectile
 							active = false;
 							myArena.addExplosion((int)xLoc, (int)yLoc, ExplosionType.MEDIUM);	//call arena addExplosion
 							t.alive = false;
+							if(myArena.level == 0){
+								l.playClip(6);
+							}
 							myArena.addExplosion(t.getX(), t.getY(), ExplosionType.LARGE);	//call arena addExplosion
 							return true;
 
@@ -172,6 +175,9 @@ public class Projectile
 							active = false;
 							myArena.addExplosion((int)xLoc, (int)yLoc, ExplosionType.MEDIUM);	//call arena addExplosion
 							t.alive = false;
+							if(myArena.level == 0){
+								l.playClip(6);
+							}
 							myArena.addExplosion(t.getX(), t.getY(), ExplosionType.LARGE);	//call arena addExplosion
 							return true;
 						}
@@ -183,6 +189,9 @@ public class Projectile
 							active = false;
 							myArena.addExplosion((int)xLoc, (int)yLoc, ExplosionType.MEDIUM);	//call arena addExplosion
 							t.alive = false;
+							if(myArena.level == 0){
+								l.playClip(6);
+							}
 							myArena.addExplosion(t.getX(), t.getY(), ExplosionType.LARGE);	//call arena addExplosion
 							return true;
 						}
@@ -195,6 +204,9 @@ public class Projectile
 							active = false;
 							myArena.addExplosion((int)xLoc, (int)yLoc, ExplosionType.MEDIUM);	//call arena addExplosion
 							t.alive = false;
+							if(myArena.level == 0){
+								l.playClip(6);
+							}
 							myArena.addExplosion(t.getX(), t.getY(), ExplosionType.LARGE);	//call arena addExplosion
 							return true;
 						}

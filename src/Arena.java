@@ -175,7 +175,6 @@ public class Arena
 				for(int i = 1; i < tankList.size(); i++){
 					if (tankList.get(i).alive != true){
 						numTanksKilled++;
-						l.playClip(6);
 					}
 					else{
 						numTanksAlive++;
