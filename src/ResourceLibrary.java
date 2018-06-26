@@ -100,7 +100,7 @@ public class ResourceLibrary
 
 	public void retrieveAudio(int i)
 	{
-		switch(i){
+		switch(i){ 
 		case 1: 
 			try
 			{
@@ -171,7 +171,16 @@ public class ResourceLibrary
 				e.printStackTrace();
 			}
 			break;
-			
+		case 8:
+			try
+			{
+				proj_to_aiTank = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/proj_to_aiTank.wav"));
+			} catch (UnsupportedAudioFileException | IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
 		}
 
 	}
@@ -206,7 +215,10 @@ public class ResourceLibrary
 			case 7:
 				clip.open(proj_to_wall);
 				break;
-			
+			case 8:
+				clip.open(proj_to_aiTank);
+				break;
+				
 			}
 			clip.start();
 		} catch (LineUnavailableException | IOException e)

@@ -71,7 +71,7 @@ public class Menu
 		//g.drawString("Play Survival Mode", buttonText2X, text2Y); //Constructs the text and draws it on panel
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 35));
 		
-		g.setColor(Color.BLUE);
+		g.setColor(Color.BLACK);
 		g.drawString("Controls", 50, 550);
 		g.drawLine(45, 552, 186, 552);
 		g.drawString("Right Handed - W, A, S, D to Move", 50, 600);
