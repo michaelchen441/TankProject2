@@ -40,7 +40,15 @@ public class ResourceLibrary
 	public BufferedImage pinkTurret;
 	public BufferedImage yellowTurret;
 
-	public AudioInputStream audio1;
+	public AudioInputStream proj_to_wall;
+	public AudioInputStream proj_to_proj;
+	public AudioInputStream proj_to_destructableWall;
+	public AudioInputStream tankFiring;
+	public AudioInputStream classicBack;
+	public AudioInputStream survivalBack;
+	public AudioInputStream gameOver;
+	public AudioInputStream proj_to_aiTank;
+	
 
 	// constructed once in tank panel and sent to other classes as an imput in draw methods
 	public ResourceLibrary()
@@ -78,7 +86,7 @@ public class ResourceLibrary
 			//			
 			//			URL url = this.getClass().getClassLoader().getResource("audio/proj_to_wall.wav");
 			//			audio1 = AudioSystem.getAudioInputStream(url);
-			audio1 = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/proj_to_wall.wav"));
+			proj_to_wall = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/proj_to_wall.wav"));
 
 
 		}
@@ -94,7 +102,7 @@ public class ResourceLibrary
 		case 1: 
 			try
 			{
-				audio1 = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/proj_to_wall.wav"));
+				proj_to_wall = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/proj_to_wall.wav"));
 			} catch (UnsupportedAudioFileException | IOException e)
 			{
 				// TODO Auto-generated catch block
@@ -114,7 +122,7 @@ public class ResourceLibrary
 		try
 		{
 			clip = AudioSystem.getClip();
-			clip.open(audio1);
+			clip.open(proj_to_wall);
 			clip.start();
 		} catch (LineUnavailableException | IOException e)
 		{
