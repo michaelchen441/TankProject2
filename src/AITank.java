@@ -214,6 +214,8 @@ public class AITank extends Tank //AI Tank is a specific type of Tank
 				Projectile p = new Projectile(turretTopX, turretTopY, Math.atan2(-(targetY - turretCenterY), targetX - turretCenterX),type, arena);
 				stockPile.add(p);
 
+				l.playClip(1);
+				
 				arena.addExplosion(turretTopX, turretTopY, ExplosionType.SMALL);
 			}			
 
@@ -245,10 +247,6 @@ public class AITank extends Tank //AI Tank is a specific type of Tank
 		return false;
 	}
 
-	public String getType() {
-
-		return "aiTank";
-	}
 
 	
 }
