@@ -24,7 +24,6 @@ public class Projectile
 	//int numDraws; 
 
 	public Projectile(int x, int y, double a, TankType inType, Arena inArena)
-
 	{
 		xLoc = x;
 		yLoc = y;
@@ -109,13 +108,10 @@ public class Projectile
 
 
 	void move(ResourceLibrary l) {
-		//		if(numDraws > 15){
-		//			return;
-		//		}
 		if(active) {
 			numMoveTries++;
 			if(!detectTanks()) {
-				detectWalls();
+				detectWalls(l);
 				if(numMoveTries%projectileSlowMultiplier == 0) 
 					xLoc+=speed*Math.cos(-angle);//used negative angle to convert from normal math axis to screen axis
 				//System.out.println(angle);
@@ -242,7 +238,7 @@ public class Projectile
 
 
 
-	private void detectWalls() {
+	private void detectWalls(ResourceLibrary l) {
 		//the wall detection will use the angle to find what direction. it can be any of the following: north, east, south, west, northeast, northwest, southeast, southwest
 		//based on the direction, it will check a certain side of the wall. in the case of a duel direction, it will check two sides
 		Direction dir = getDirection();
@@ -257,6 +253,7 @@ public class Projectile
 									numWallHits++;
 									angle = Math.PI-angle;
 									if(angle < 0) {
+										l.playClip(1);
 										angle += 2*Math.PI;
 									}
 									if(walls[r][c].destructable)
@@ -272,6 +269,7 @@ public class Projectile
 									numWallHits++;
 									angle = angle * -1;
 									if(angle < 0) {
+										l.playClip(1);
 										angle += 2*Math.PI;
 									}
 									if(walls[r][c].destructable)
@@ -288,6 +286,7 @@ public class Projectile
 									numWallHits++;
 									angle = Math.PI-angle;
 									if(angle < 0) {
+										l.playClip(1);
 										angle += 2*Math.PI;
 									}
 									if(walls[r][c].destructable)
@@ -304,6 +303,7 @@ public class Projectile
 									numWallHits++;
 									angle = angle *-1;
 									if(angle < 0) {
+										l.playClip(1);
 										angle += 2*Math.PI;
 									}
 									if(walls[r][c].destructable)
@@ -345,12 +345,6 @@ public class Projectile
 			return Direction.SOUTHEAST;
 
 		return null;
-	}
-
-
-
-	private void rebound() {
-
 	}
 
 	private void checkProjectile() {
