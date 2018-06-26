@@ -44,8 +44,8 @@ public class ResourceLibrary
 	public AudioInputStream proj_to_proj;
 	public AudioInputStream proj_to_destructableWall;
 	public AudioInputStream tankFiring;
-	public AudioInputStream classicBack;
-	public AudioInputStream survivalBack;
+	public AudioInputStream backgroundClassic;
+	public AudioInputStream backgroundSurvival;
 	public AudioInputStream gameOver;
 	public AudioInputStream proj_to_aiTank;
 	
@@ -86,11 +86,11 @@ public class ResourceLibrary
 			//			
 			//			URL url = this.getClass().getClassLoader().getResource("audio/proj_to_wall.wav");
 			//			audio1 = AudioSystem.getAudioInputStream(url);
-			proj_to_wall = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/proj_to_wall.wav"));
+			
 
 
 		}
-		catch (IOException | UnsupportedAudioFileException e){
+		catch (IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -110,6 +110,14 @@ public class ResourceLibrary
 			}
 			break;
 		case 2:
+			try
+			{
+				tankFiring = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/tankFiring.wav"));
+			} catch (UnsupportedAudioFileException | IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 		}
 
@@ -119,10 +127,19 @@ public class ResourceLibrary
 	{
 		Clip clip = null;
 		retrieveAudio(1);
+	
 		try
 		{
 			clip = AudioSystem.getClip();
-			clip.open(proj_to_wall);
+			switch(i){
+			case 1: 
+				clip.open(proj_to_wall);
+				break;
+			case 2:
+				clip.open(tankFiring);
+				break;
+			
+			}
 			clip.start();
 		} catch (LineUnavailableException | IOException e)
 		{
