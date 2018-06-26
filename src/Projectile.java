@@ -19,6 +19,7 @@ public class Projectile
 	int numMoveTries;
 	int projectileSlowMultiplier;
 	Arena myArena;
+	int maxNumWallHits;
 
 	//use to stop projectile early for visualizing
 	//int numDraws; 
@@ -35,27 +36,35 @@ public class Projectile
 		switch(type){
 		case GREEN: 
 			speed = 3;
+			maxNumWallHits = 1;
 			break;
 		case BLUE:
 			speed = 3;
+			maxNumWallHits = 0;
 			break;
 		case RED:
 			speed = 3;
+			maxNumWallHits = 1;
 			break;
 		case BLACK:
 			speed = 5;
+			maxNumWallHits = 0;
 			break;
 		case WHITE:
 			speed = 5;
+			maxNumWallHits = 2;
 			break;
 		case PINK:
 			speed = 5;
+			maxNumWallHits = 2;
 			break;
 		case YELLOW:
 			speed = 5;
+			maxNumWallHits = 2;
 			break;
 		case INVISIBLE:
 			speed = 3;
+			maxNumWallHits = 1;
 			break;
 		}
 
@@ -124,49 +133,10 @@ public class Projectile
 			checkProjectile();
 
 		}
-		switch(type){
-		case GREEN: 
-			if(numWallHits > 1) { //once its hit a second wall, it dies //change back to 1
-				active = false;
-			}
-			break;
-		case BLUE:
-			if(numWallHits > 0) { //once its hit a wall, it dies //change back to 1
-				active = false;
-			}				
-			break;
-		case RED:
-			if(numWallHits > 1) { //once its hit a second wall, it dies //change back to 1
-				active = false;
-			}
-			break;
-		case BLACK:
-			if(numWallHits > 0) { //once its hit a wall, it dies //change back to 1
-				active = false;
-			}
-			break;
-		case WHITE:
-			if(numWallHits > 2) { //once its hit a third wall, it dies //change back to 1
-				active = false;
-			}
-			break;
-		case PINK:
-			if(numWallHits > 2) { //once its hit a second wall, it dies //change back to 1
-				active = false;
-			}
-			break;
-		case YELLOW:
-			if(numWallHits > 2) { //once its hit a second wall, it dies //change back to 1
-				active = false;
-			}
-			break;
-		case INVISIBLE:
-			if(numWallHits > 1) { //once its hit a second wall, it dies //change back to 1
-				active = false;
-			}
-			break;
+		
+		if(numWallHits > maxNumWallHits){ //once its hit a second wall, it dies //change back to 1
+			active = false;
 		}
-
 		if(!active){
 			myArena.addExplosion((int)xLoc, (int)yLoc, ExplosionType.MEDIUM);	//call arena addExplosion
 		}
