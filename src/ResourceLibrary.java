@@ -109,7 +109,17 @@ public class ResourceLibrary
 				e.printStackTrace();
 			}
 			break;
-		case 2:
+		case 2: 
+			try
+			{
+				proj_to_destructableWall = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/proj_to_destructableWall.wav"));
+			} catch (UnsupportedAudioFileException | IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		case 3:
 			try
 			{
 				tankFiring = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/tankFiring.wav"));
@@ -119,6 +129,27 @@ public class ResourceLibrary
 				e.printStackTrace();
 			}
 			break;
+		case 4:
+			try
+			{
+				backgroundClassic = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/backgroundClassic.wav"));
+			} catch (UnsupportedAudioFileException | IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		case 5:
+			try
+			{
+				backgroundSurvival = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/backgroundSurvival.wav"));
+			} catch (UnsupportedAudioFileException | IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+			
 		}
 
 	}
@@ -136,7 +167,16 @@ public class ResourceLibrary
 				clip.open(proj_to_wall);
 				break;
 			case 2:
+				clip.open(proj_to_destructableWall);
+				break;
+			case 3:
 				clip.open(tankFiring);
+				break;
+			case 4:
+				clip.open(backgroundClassic);
+				break;
+			case 5:
+				clip.open(backgroundSurvival);
 				break;
 			
 			}
