@@ -40,10 +40,10 @@ public class AITank extends Tank //AI Tank is a specific type of Tank
 
 		//		wallsInBetween = new ArrayList<Wall>();
 		intersect = false;
-		
+
 		numMoveTries = 0;
 
-		
+
 		switch(type){
 		case BLUE:
 			tankSlowMultiplier = 10000;
@@ -82,9 +82,9 @@ public class AITank extends Tank //AI Tank is a specific type of Tank
 			}
 			break;
 		}
-		
+
 		fireSlowMultiplier = 400;
-		
+
 		commit = false;
 		type1 = inType;
 		//		for(int r = 0; r<surroundingWalls.length; r++) {
@@ -108,46 +108,46 @@ public class AITank extends Tank //AI Tank is a specific type of Tank
 		ai1 = new Point(xLoc, yLoc);
 		Direction dirX;
 		Direction dirY;
-		
-		
-		
 
-			if(ai1.getX() - player1.getX() > 0) {
-				dirX = Direction.WEST;
-				
-			}
-			else if(ai1.getX() - player1.getX() < 0) {
-				dirX = Direction.EAST;
-				
-			}
-			else {
-				dirX = null;
-			}
 
-			if((ai1.getY() - player1.getY() > 0)  ) {
-				dirY = Direction.NORTH;
-			}
-			else if((ai1.getY() - player1.getY() < 0)){
-				dirY = Direction.SOUTH;
-			}
-			else {
-				dirY = null;
-			}
 
-			
-			
-			if(canMoveX(dirX,surroundingWalls) && numMoveTries%tankSlowMultiplier == 0 && dirX == Direction.WEST && xLoc != player1.getX()) {
-				xLoc += -1;
-			}
-			else if(canMoveX(dirX,surroundingWalls) && numMoveTries%tankSlowMultiplier == 0 && dirX == Direction.EAST && xLoc != player1.getX()) {
-				xLoc += 1;
-			}
-			if(canMoveY(Direction.NORTH,surroundingWalls) && numMoveTries%tankSlowMultiplier == 0 && dirY == Direction.NORTH && yLoc != player1.getY()){
-				yLoc += -1;
-			}
-			else if(canMoveY(Direction.SOUTH,surroundingWalls) && numMoveTries%tankSlowMultiplier == 0 && dirY == Direction.SOUTH && yLoc != player1.getY()){
-				yLoc += 1;
-			}
+
+		if(ai1.getX() - player1.getX() > 0) {
+			dirX = Direction.WEST;
+
+		}
+		else if(ai1.getX() - player1.getX() < 0) {
+			dirX = Direction.EAST;
+
+		}
+		else {
+			dirX = null;
+		}
+
+		if((ai1.getY() - player1.getY() > 0)  ) {
+			dirY = Direction.NORTH;
+		}
+		else if((ai1.getY() - player1.getY() < 0)){
+			dirY = Direction.SOUTH;
+		}
+		else {
+			dirY = null;
+		}
+
+
+
+		if(canMoveX(dirX,surroundingWalls) && numMoveTries%tankSlowMultiplier == 0 && dirX == Direction.WEST && xLoc != player1.getX()) {
+			xLoc += -1;
+		}
+		else if(canMoveX(dirX,surroundingWalls) && numMoveTries%tankSlowMultiplier == 0 && dirX == Direction.EAST && xLoc != player1.getX()) {
+			xLoc += 1;
+		}
+		if(canMoveY(Direction.NORTH,surroundingWalls) && numMoveTries%tankSlowMultiplier == 0 && dirY == Direction.NORTH && yLoc != player1.getY()){
+			yLoc += -1;
+		}
+		else if(canMoveY(Direction.SOUTH,surroundingWalls) && numMoveTries%tankSlowMultiplier == 0 && dirY == Direction.SOUTH && yLoc != player1.getY()){
+			yLoc += 1;
+		}
 
 		for(Projectile p : stockPile) {
 			p.move(l);
@@ -163,16 +163,16 @@ public class AITank extends Tank //AI Tank is a specific type of Tank
 	//Need to figure out mechanism by which AI Tank Fires
 	void fire(ResourceLibrary l)
 	{
-		
+
 		//tank firing sound
 		for(int i = 0; i < stockPile.size(); i++){
 			if (!stockPile.get(i).active){
 				stockPile.remove(i); //Removes missile from stockpile
 				i--;
-				
+
 			}
 		}
-		
+
 		intersect = false;
 
 		player = new Point(arena.playerTankLocX(),  -arena.playerTankLocY());
@@ -208,22 +208,23 @@ public class AITank extends Tank //AI Tank is a specific type of Tank
 
 			if(numMoveTries%fireSlowMultiplier == 0 && alive) {
 
-				System.out.println("You fired1");
+
 				//if it has space, it will make a new projectile
+				if(canFire) {
+					Projectile p = new Projectile(turretTopX, turretTopY, Math.atan2(-(targetY - turretCenterY), targetX - turretCenterX),type, arena);
+					stockPile.add(p);
+					l.playClip(3);
 
-				Projectile p = new Projectile(turretTopX, turretTopY, Math.atan2(-(targetY - turretCenterY), targetX - turretCenterX),type, arena);
-				stockPile.add(p);
-				l.playClip(3);
 
-				
-				arena.addExplosion(turretTopX, turretTopY, ExplosionType.SMALL);
+					arena.addExplosion(turretTopX, turretTopY, ExplosionType.SMALL);
+				}
 			}			
 
 			intersect = false;
 		}
 
 		intersect = false;
-		
+
 	}
 	public int orientation(Point p, Point q, Point r) {
 		double val = (q.getY() - p.getY()) * (r.getX() - q.getX())
@@ -248,5 +249,5 @@ public class AITank extends Tank //AI Tank is a specific type of Tank
 	}
 
 
-	
+
 }

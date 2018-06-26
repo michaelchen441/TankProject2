@@ -116,11 +116,6 @@ public class PlayerTank extends Tank
 	}
 
 
-	//Aim method not implemented yet, but based on mouse movement
-	public void aim(){
-
-	}
-
 	//Firing method
 	public void fire(ResourceLibrary l)
 	{
@@ -183,6 +178,12 @@ public class PlayerTank extends Tank
 			return true;
 
 		return false;
+	}
+
+	@Override
+	void aim() {
+		// TODO Auto-generated method stub
+		
 	}
 
 
