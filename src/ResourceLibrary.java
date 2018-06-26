@@ -181,6 +181,16 @@ public class ResourceLibrary
 				e.printStackTrace();
 			}
 			break;
+		case 9:
+			try
+			{
+				gameOver = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/gameOver.wav"));
+			} catch (UnsupportedAudioFileException | IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
 		}
 
 	}
@@ -217,6 +227,9 @@ public class ResourceLibrary
 				break;
 			case 8:
 				clip.open(proj_to_aiTank);
+				break;
+			case 9:
+				clip.open(gameOver);
 				break;
 				
 			}

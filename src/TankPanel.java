@@ -468,6 +468,9 @@ public class TankPanel extends JPanel {
 
 			Arena currentArena = arenaList.get(level);
 			
+			
+			
+			
 			if(level == 13){//tests if player won
 				latestScoreClassic = 13;
 				highScore.setHighScoreClassic(13);
