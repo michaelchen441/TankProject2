@@ -161,6 +161,16 @@ public class ResourceLibrary
 				e.printStackTrace();
 			}
 			break;
+		case 7:
+			try
+			{
+				proj_to_wall = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/proj_to_wall.wav"));
+			} catch (UnsupportedAudioFileException | IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
 			
 		}
 
@@ -192,6 +202,9 @@ public class ResourceLibrary
 				break;
 			case 6:
 				clip.open(progressLevel);
+				break;
+			case 7:
+				clip.open(proj_to_wall);
 				break;
 			
 			}
