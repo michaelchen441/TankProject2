@@ -175,6 +175,7 @@ public class Arena
 				for(int i = 1; i < tankList.size(); i++){
 					if (tankList.get(i).alive != true){
 						numTanksKilled++;
+						l.playClip(6);
 					}
 					else{
 						numTanksAlive++;
@@ -211,6 +212,7 @@ public class Arena
 				if(allDead){
 					transition = true;
 					startingTransition = true;
+					l.playClip(6);
 				}
 			}
 		}
@@ -237,19 +239,6 @@ public class Arena
 	public void addExplosion(int inX, int inY, ExplosionType inType){
 		explosionList.add(new Explosion(inX, inY, inType));
 	}
-
-	//	private void deleteWall()
-	//	{
-	//		for(int r = 0; r < walls.length; r++){
-	//			for(int c = 0; c < walls[r].length; c++){
-	//				if(walls[r][c] != null){
-	//					walls[r][c] = null;
-	//					return;
-	//				}
-	//			}
-	//		}
-	//		
-	//	}
 	private void survivalAddTank()
 	{
 		//use tanklist to find quadrant to add to killed to get random

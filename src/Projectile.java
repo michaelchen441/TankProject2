@@ -223,7 +223,9 @@ public class Projectile
 								if( (int)yLoc > (r*50) && (int)yLoc < (r*50)+50) {
 									numWallHits++;
 									angle = Math.PI-angle;
-									
+									if(numWallHits <= maxNumWallHits) {
+										l.playClip(1);
+									}
 									if(angle < 0) {
 										angle += 2*Math.PI;
 									}
@@ -240,7 +242,9 @@ public class Projectile
 								if( (int)xLoc > (c*50) && (int)xLoc < (c*50)+50) {
 									numWallHits++;
 									angle = angle * -1;
-									
+									if(numWallHits <= maxNumWallHits) {
+										l.playClip(1);
+									}
 									if(angle < 0) {
 										angle += 2*Math.PI;
 									}
@@ -258,7 +262,9 @@ public class Projectile
 								if( (int)yLoc > (r*50) && (int)yLoc < (r*50)+50) {
 									numWallHits++;
 									angle = Math.PI-angle;
-									
+									if(numWallHits <= maxNumWallHits) {
+										l.playClip(1);
+									}
 									if(angle < 0) {
 										angle += 2*Math.PI;
 									}
@@ -275,7 +281,9 @@ public class Projectile
 							if( (int)yLoc > ((r*50)-speed) && (int)yLoc < (r*50)+speed) //adds speed because parametric movement can skip pixels 
 								if( (int)xLoc > (c*50) && (int)xLoc < (c*50)+50) {
 									numWallHits++;
-									
+									if(numWallHits <= maxNumWallHits) {
+										l.playClip(1);
+									}
 									angle = angle *-1;
 									if(angle < 0) {
 										angle += 2*Math.PI;
