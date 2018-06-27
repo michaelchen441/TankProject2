@@ -40,16 +40,21 @@ public class ResourceLibrary
 	public BufferedImage pinkTurret;
 	public BufferedImage yellowTurret;
 
-	public AudioInputStream proj_to_wall;
-	public AudioInputStream projRicochet;
-	public AudioInputStream proj_to_proj;
-	public AudioInputStream proj_to_destructableWall;
-	public AudioInputStream tankFiring;
-	public AudioInputStream backgroundClassic;
-	public AudioInputStream backgroundSurvival;
-	public AudioInputStream gameOver;
-	public AudioInputStream proj_to_aiTank;
-	public AudioInputStream progressLevel;
+
+
+	public int K_proj_to_wall = 0;
+	public int K_projRicochet = 1;
+	public int K_proj_to_proj = 2;
+	public int K_proj_to_destructableWall = 3;
+	public int K_tankFiring = 4;
+	public int K_backgroundClassic = 5;
+	public int K_backgroundSurvival = 6;
+	public int K_gameOver = 7;
+	public int K_proj_to_aiTank = 8;
+	public int K_progressLevel = 9;
+	public int K_Max = 10;
+
+	private String[]	audioFileNameArr = new String[K_Max];
 
 
 	// constructed once in tank panel and sent to other classes as an imput in draw methods
@@ -82,12 +87,6 @@ public class ResourceLibrary
 			pinkTurret = ImageIO.read(getClass().getResource("images/20x50 turrets/pinkTurret.png"));
 			yellowTurret = ImageIO.read(getClass().getResource("images/20x50 turrets/yellowTurret.png"));
 
-			//			File soundFile = new File("audio/proj_to_wall.wav.wav");
-			//			audio1 = AudioSystem.getAudioInputStream(soundFile);
-
-			//			
-			//			URL url = this.getClass().getClassLoader().getResource("audio/proj_to_wall.wav");
-			//			audio1 = AudioSystem.getAudioInputStream(url);
 
 
 
@@ -96,94 +95,36 @@ public class ResourceLibrary
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
 
-	public void retrieveAudio(int i)
-	{
-		try
-		{
-			switch(i){ 
-			case 1: 
-				projRicochet = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/projRicochet.wav"));
-				break;
-			case 2: 
-				proj_to_destructableWall = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/proj_to_destructableWall.wav"));
-				break;
-			case 3:
-				tankFiring = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/tankFiring.wav"));
-				break;
-			case 4:		
-				backgroundClassic = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/backgroundClassic.wav"));
-				break;
-			case 5:			
-				backgroundSurvival = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/backgroundSurvival.wav"));
-				break;
-			case 6:		
-				progressLevel = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/progressLevel.wav"));
-				break;
-			case 7:		
-				proj_to_wall = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/proj_to_wall.wav"));
-				break;
-			case 8:	
-				proj_to_aiTank = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/proj_to_aiTank.wav"));
-				break;
-			case 9:
-				gameOver = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/gameOver.wav"));
-				break;
-			}
-		} catch (UnsupportedAudioFileException | IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		audioFileNameArr[K_proj_to_wall]				= "audio/proj_to_wall.wav";
+		audioFileNameArr[K_projRicochet]				= "audio/projRicochet.wav";
+		audioFileNameArr[K_proj_to_proj]				= "audio/projRicochet.wav";
+		audioFileNameArr[K_proj_to_destructableWall]	= "audio/proj_to_destructableWall.wav";
+		audioFileNameArr[K_tankFiring]					= "audio/tankFiring.wav";
+		audioFileNameArr[K_backgroundClassic]			= "audio/backgroundClassic.wav";
+		audioFileNameArr[K_backgroundSurvival]			= "audio/backgroundSurvival.wav";
+		audioFileNameArr[K_gameOver]					= "audio/gameOver.wav";
+		audioFileNameArr[K_proj_to_aiTank]				= "audio/proj_to_aiTank.wav";
+		audioFileNameArr[K_progressLevel]				= "audio/progressLevel.wav";
+
+
 
 	}
 
 	public void playClip(int i)
 	{
-		Clip clip = null;
-		retrieveAudio(i);
-
 		try
 		{
-			clip = AudioSystem.getClip();
-			switch(i){
-			case 1: 
-				clip.open(projRicochet);
-				break;
-			case 2:
-				clip.open(proj_to_destructableWall);
-				break;
-			case 3:
-				clip.open(tankFiring);
-				break;
-			case 4:
-				clip.open(backgroundClassic);
-				break;
-			case 5:
-				clip.open(backgroundSurvival);
-				break;
-			case 6:
-				clip.open(progressLevel);
-				break;
-			case 7:
-				clip.open(proj_to_wall);
-				break;
-			case 8:
-				clip.open(proj_to_aiTank);
-				break;
-			case 9:
-				clip.open(gameOver);
-				break;
-			}
+			AudioInputStream	theStream = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource(audioFileNameArr[i]));
+
+			Clip	clip = AudioSystem.getClip();
+			clip.open(theStream);
 			clip.start();
-		} catch (LineUnavailableException | IOException e)
+		} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-
 	}
 
 

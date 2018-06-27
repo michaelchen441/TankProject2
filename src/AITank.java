@@ -213,7 +213,7 @@ public class AITank extends Tank //AI Tank is a specific type of Tank
 				if(canFire) {
 					Projectile p = new Projectile(turretTopX, turretTopY, Math.atan2(-(targetY - turretCenterY), targetX - turretCenterX),type, arena);
 					stockPile.add(p);
-					l.playClip(3);
+					l.playClip(l.K_tankFiring);
 
 
 					arena.addExplosion(turretTopX, turretTopY, ExplosionType.SMALL);

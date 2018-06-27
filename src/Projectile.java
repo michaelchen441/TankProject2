@@ -139,7 +139,7 @@ public class Projectile
 		}
 		if(!active){
 			myArena.addExplosion((int)xLoc, (int)yLoc, ExplosionType.MEDIUM);	//call arena addExplosion
-			l.playClip(7);
+			l.playClip(l.K_proj_to_wall);
 		}
 
 
@@ -160,8 +160,9 @@ public class Projectile
 							myArena.addExplosion((int)xLoc, (int)yLoc, ExplosionType.MEDIUM);	//call arena addExplosion
 							t.alive = false;
 							if(myArena.level == 0){
-								l.playClip(6);
+								l.playClip(l.K_progressLevel);
 							}
+							l.playClip(l.K_proj_to_aiTank);
 							myArena.addExplosion(t.getX(), t.getY(), ExplosionType.LARGE);	//call arena addExplosion
 							return true;
 
@@ -176,8 +177,9 @@ public class Projectile
 							myArena.addExplosion((int)xLoc, (int)yLoc, ExplosionType.MEDIUM);	//call arena addExplosion
 							t.alive = false;
 							if(myArena.level == 0){
-								l.playClip(6);
+								l.playClip(l.K_progressLevel);
 							}
+							l.playClip(l.K_proj_to_aiTank);
 							myArena.addExplosion(t.getX(), t.getY(), ExplosionType.LARGE);	//call arena addExplosion
 							return true;
 						}
@@ -190,8 +192,9 @@ public class Projectile
 							myArena.addExplosion((int)xLoc, (int)yLoc, ExplosionType.MEDIUM);	//call arena addExplosion
 							t.alive = false;
 							if(myArena.level == 0){
-								l.playClip(6);
+								l.playClip(l.K_progressLevel);
 							}
+							l.playClip(l.K_proj_to_aiTank);
 							myArena.addExplosion(t.getX(), t.getY(), ExplosionType.LARGE);	//call arena addExplosion
 							return true;
 						}
@@ -205,8 +208,9 @@ public class Projectile
 							myArena.addExplosion((int)xLoc, (int)yLoc, ExplosionType.MEDIUM);	//call arena addExplosion
 							t.alive = false;
 							if(myArena.level == 0){
-								l.playClip(6);
+								l.playClip(l.K_progressLevel);
 							}
+							l.playClip(l.K_proj_to_aiTank);
 							myArena.addExplosion(t.getX(), t.getY(), ExplosionType.LARGE);	//call arena addExplosion
 							return true;
 						}
@@ -236,7 +240,7 @@ public class Projectile
 									numWallHits++;
 									angle = Math.PI-angle;
 									if(numWallHits <= maxNumWallHits && !walls[r][c].destructable) {
-										l.playClip(1);
+										l.playClip(l.K_projRicochet);
 									}
 									if(angle < 0) {
 										angle += 2*Math.PI;
@@ -245,7 +249,7 @@ public class Projectile
 									{
 										walls[r][c] = null;
 										active = false;
-										l.playClip(2);
+										l.playClip(l.K_proj_to_destructableWall);
 									}
 									return;
 								}
@@ -255,7 +259,7 @@ public class Projectile
 									numWallHits++;
 									angle = angle * -1;
 									if(numWallHits <= maxNumWallHits && !walls[r][c].destructable) {
-										l.playClip(1);
+										l.playClip(l.K_projRicochet);
 									}
 									if(angle < 0) {
 										angle += 2*Math.PI;
@@ -264,7 +268,7 @@ public class Projectile
 									{
 										walls[r][c] = null;
 										active = false;
-										l.playClip(2);
+										l.playClip(l.K_proj_to_destructableWall);
 									}
 									return;
 								}
@@ -275,7 +279,7 @@ public class Projectile
 									numWallHits++;
 									angle = Math.PI-angle;
 									if(numWallHits <= maxNumWallHits && !walls[r][c].destructable) {
-										l.playClip(1);
+										l.playClip(l.K_projRicochet);
 									}
 									if(angle < 0) {
 										angle += 2*Math.PI;
@@ -284,7 +288,7 @@ public class Projectile
 									{
 										walls[r][c] = null;
 										active = false;
-										l.playClip(2);
+										l.playClip(l.K_proj_to_destructableWall);
 									}
 									return;
 								}
@@ -294,7 +298,7 @@ public class Projectile
 								if( (int)xLoc > (c*50) && (int)xLoc < (c*50)+50) {
 									numWallHits++;
 									if(numWallHits <= maxNumWallHits && !walls[r][c].destructable) {
-										l.playClip(1);
+										l.playClip(l.K_projRicochet);
 									}
 									angle = angle *-1;
 									if(angle < 0) {
@@ -304,7 +308,7 @@ public class Projectile
 									{
 										walls[r][c] = null;
 										active = false;
-										l.playClip(2);
+										l.playClip(l.K_proj_to_destructableWall);
 									}
 									return;
 								}

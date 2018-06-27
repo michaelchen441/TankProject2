@@ -211,7 +211,7 @@ public class Arena
 				if(allDead){
 					transition = true;
 					startingTransition = true;
-					l.playClip(6);
+					l.playClip(l.K_progressLevel);
 				}
 			}
 		}
