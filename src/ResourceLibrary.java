@@ -50,7 +50,7 @@ public class ResourceLibrary
 	public AudioInputStream gameOver;
 	public AudioInputStream proj_to_aiTank;
 	public AudioInputStream progressLevel;
-	
+
 
 	// constructed once in tank panel and sent to other classes as an imput in draw methods
 	public ResourceLibrary()
@@ -88,7 +88,7 @@ public class ResourceLibrary
 			//			
 			//			URL url = this.getClass().getClassLoader().getResource("audio/proj_to_wall.wav");
 			//			audio1 = AudioSystem.getAudioInputStream(url);
-			
+
 
 
 		}
@@ -100,97 +100,41 @@ public class ResourceLibrary
 
 	public void retrieveAudio(int i)
 	{
-		switch(i){ 
-		case 1: 
-			try
-			{
+		try
+		{
+			switch(i){ 
+			case 1: 
 				projRicochet = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/projRicochet.wav"));
-			} catch (UnsupportedAudioFileException | IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			break;
-		case 2: 
-			try
-			{
+				break;
+			case 2: 
 				proj_to_destructableWall = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/proj_to_destructableWall.wav"));
-			} catch (UnsupportedAudioFileException | IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			break;
-		case 3:
-			try
-			{
+				break;
+			case 3:
 				tankFiring = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/tankFiring.wav"));
-			} catch (UnsupportedAudioFileException | IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			break;
-		case 4:
-			try
-			{
+				break;
+			case 4:		
 				backgroundClassic = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/backgroundClassic.wav"));
-			} catch (UnsupportedAudioFileException | IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			break;
-		case 5:
-			try
-			{
+				break;
+			case 5:			
 				backgroundSurvival = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/backgroundSurvival.wav"));
-			} catch (UnsupportedAudioFileException | IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			break;
-		case 6:
-			try
-			{
+				break;
+			case 6:		
 				progressLevel = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/progressLevel.wav"));
-			} catch (UnsupportedAudioFileException | IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			break;
-		case 7:
-			try
-			{
+				break;
+			case 7:		
 				proj_to_wall = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/proj_to_wall.wav"));
-			} catch (UnsupportedAudioFileException | IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			break;
-		case 8:
-			try
-			{
+				break;
+			case 8:	
 				proj_to_aiTank = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/proj_to_aiTank.wav"));
-			} catch (UnsupportedAudioFileException | IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			break;
-		case 9:
-			try
-			{
+				break;
+			case 9:
 				gameOver = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource("audio/gameOver.wav"));
-			} catch (UnsupportedAudioFileException | IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				break;
 			}
-			break;
+		} catch (UnsupportedAudioFileException | IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
@@ -199,7 +143,7 @@ public class ResourceLibrary
 	{
 		Clip clip = null;
 		retrieveAudio(i);
-	
+
 		try
 		{
 			clip = AudioSystem.getClip();
@@ -231,7 +175,6 @@ public class ResourceLibrary
 			case 9:
 				clip.open(gameOver);
 				break;
-				
 			}
 			clip.start();
 		} catch (LineUnavailableException | IOException e)
@@ -239,9 +182,9 @@ public class ResourceLibrary
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
+
 	}
 
-	
+
 }
