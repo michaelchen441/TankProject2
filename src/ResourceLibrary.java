@@ -135,7 +135,8 @@ public class ResourceLibrary
 			e.printStackTrace();
 		}
 	}
-	public void playBackground(int i) throws LineUnavailableException 
+	
+	public void playBackground(int i)
 	{
 		try {
 			backgroundMus.stop();
@@ -144,7 +145,7 @@ public class ResourceLibrary
 			backgroundMus.open(theStream);
 			backgroundMus.loop(Clip.LOOP_CONTINUOUSLY);
 
-		} catch (UnsupportedAudioFileException | IOException e) {
+		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

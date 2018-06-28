@@ -278,7 +278,7 @@ public class TankPanel extends JPanel {
 							inMenu = false;
 							level = 1;
 							
-							resourceLibrary.playClip(resourceLibrary.K_backgroundClassic);
+							resourceLibrary.playBackground(resourceLibrary.K_backgroundClassic);
 							backgroundMusicPlaying = true;
 							
 						}
@@ -288,7 +288,7 @@ public class TankPanel extends JPanel {
 							survivalModeFirstTime = true;
 							level = 0;
 							
-							resourceLibrary.playClip(resourceLibrary.K_backgroundSurvival);
+							resourceLibrary.playBackground(resourceLibrary.K_backgroundSurvival);
 							backgroundMusicPlaying = true;
 						}
 					}
