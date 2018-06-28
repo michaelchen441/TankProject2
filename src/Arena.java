@@ -43,7 +43,7 @@ public class Arena
 	public Arena(int inLevel, int inNumWallsAcross, int  inNumWallsDown) {
 		level = inLevel; // Sets up which level
 		levelCount = inLevel; 
-
+		
 
 		// Sets up arena dimensions
 		numWallsAcross = inNumWallsAcross; 

@@ -1,5 +1,7 @@
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 
@@ -11,6 +13,10 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.sun.javafx.tk.Toolkit;
+
+import sun.audio.AudioData;
+import sun.audio.AudioStream;
+import sun.audio.ContinuousAudioDataStream;
 
 public class ResourceLibrary
 {
@@ -111,15 +117,25 @@ public class ResourceLibrary
 
 	}
 
-	public void playClip(int i)
+	public void playClip(int i) 
 	{
 		try
 		{
-			AudioInputStream	theStream = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource(audioFileNameArr[i]));
+			if(i == 5|| i == 6) {
 
-			Clip	clip = AudioSystem.getClip();
+			}
+			
+			AudioInputStream	theStream = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource(audioFileNameArr[i]));
+			Clip clip = AudioSystem.getClip();
+			if(i == 5|| i == 6) {
+				 	clip.open(theStream);
+			        clip.loop(Clip.LOOP_CONTINUOUSLY);
+			        
+			}
+			else {
 			clip.open(theStream);
 			clip.start();
+			}
 		} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e)
 		{
 			// TODO Auto-generated catch block
