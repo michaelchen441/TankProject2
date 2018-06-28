@@ -28,6 +28,8 @@ public class TankPanel extends JPanel {
 	boolean inMenu = true;
 	boolean inSurvivalMode = false;
 	boolean survivalModeFirstTime = true;
+	
+	boolean backgroundMusicPlaying = false;
 
 	int level = -1; 
 	boolean level1FirstTime = true;
@@ -261,6 +263,7 @@ public class TankPanel extends JPanel {
 
 	}
 
+
 	private void setUpMouseListeners() {
 		{
 			this.addMouseListener(new MouseListener() {
@@ -275,18 +278,28 @@ public class TankPanel extends JPanel {
 							inMenu = false;
 							level = 1;
 							
+							resourceLibrary.playClip(resourceLibrary.K_backgroundClassic);
+							backgroundMusicPlaying = true;
+							
 						}
 						if(theMenu.clickedButton2(arg0.getX(), arg0.getY())){//survival mode
 							inMenu = false;
 							inSurvivalMode = true;
 							survivalModeFirstTime = true;
 							level = 0;
+							
+							resourceLibrary.playClip(resourceLibrary.K_backgroundSurvival);
+							backgroundMusicPlaying = true;
 						}
 					}
 					if(inGameOverScreen){
 						if(gameOverScreen.clickedButton1(arg0.getX(), arg0.getY())){
 							resetGame();
+							
+							//TODO resourceLibrary.playClip(resourceLibrary.K_backgroundMenu);
+							backgroundMusicPlaying = true;
 						}
+						//TODO stop music
 					}
 
 
@@ -411,6 +424,21 @@ public class TankPanel extends JPanel {
 		//			resetGame();
 		//			
 		//		}
+		
+		/* DOESNT WORK
+		if(level > 0 && !backgroundMusicPlaying){
+			resourceLibrary.playClip(resourceLibrary.K_backgroundClassic);
+			backgroundMusicPlaying = true;
+		}
+		else if (level == 0 && !backgroundMusicPlaying){
+			resourceLibrary.playClip(resourceLibrary.K_backgroundSurvival);
+			backgroundMusicPlaying = true;
+		}
+		else if (level == -1 && !backgroundMusicPlaying){
+			//TODO resourceLibrary.playClip(resourceLibrary.K_backgroundMenu);
+			backgroundMusicPlaying = true;
+		}
+		*/
 
 		if(!level1FirstTime){
 			arenaList.get(level).setInputMoveArr(getInputMoveArr());
@@ -422,6 +450,7 @@ public class TankPanel extends JPanel {
 
 		if (inMenu){
 			theMenu.draw(g, resourceLibrary, highScore.getHighScoreSurvival(), highScore.getHighScoreClassic());
+			//TODO add menu music
 		}
 		else{
 			if(level1FirstTime){

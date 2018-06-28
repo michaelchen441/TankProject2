@@ -121,10 +121,6 @@ public class ResourceLibrary
 	{
 		try
 		{
-			if(i == 5|| i == 6) {
-
-			}
-			
 			AudioInputStream	theStream = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource(audioFileNameArr[i]));
 			Clip clip = AudioSystem.getClip();
 			if(i == 5|| i == 6) {
