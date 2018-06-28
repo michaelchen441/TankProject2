@@ -60,6 +60,8 @@ public class ResourceLibrary
 	public int K_progressLevel = 9;
 	public int K_Max = 10;
 
+	Clip backgroundMus;
+
 	private String[]	audioFileNameArr = new String[K_Max];
 
 
@@ -123,14 +125,9 @@ public class ResourceLibrary
 		{
 			AudioInputStream	theStream = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource(audioFileNameArr[i]));
 			Clip clip = AudioSystem.getClip();
-			if(i == 5|| i == 6) {
-				 	clip.open(theStream);
-			        clip.loop(Clip.LOOP_CONTINUOUSLY);
-			        
-			}
-			else {
-			clip.open(theStream);
-			clip.start();
+			if(!(i == 5|| i == 6)) {
+				clip.open(theStream);
+				clip.start();
 			}
 		} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e)
 		{
@@ -138,6 +135,19 @@ public class ResourceLibrary
 			e.printStackTrace();
 		}
 	}
+	public void playBackground(int i) throws LineUnavailableException 
+	{
+		try {
+			backgroundMus.stop();
+			AudioInputStream	theStream = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource(audioFileNameArr[i]));
+			backgroundMus = AudioSystem.getClip();
+			backgroundMus.open(theStream);
+			backgroundMus.loop(Clip.LOOP_CONTINUOUSLY);
 
+		} catch (UnsupportedAudioFileException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+	}
 }
