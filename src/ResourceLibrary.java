@@ -135,7 +135,7 @@ public class ResourceLibrary
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void playBackground(int i)
 	{
 		try {
@@ -146,6 +146,7 @@ public class ResourceLibrary
 			backgroundMus.loop(Clip.LOOP_CONTINUOUSLY);
 
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+			// TODO Auto-generated catch bloc catch (LineUnavailableException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
