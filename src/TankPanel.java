@@ -29,7 +29,7 @@ public class TankPanel extends JPanel {
 	boolean inSurvivalMode = false;
 	boolean survivalModeFirstTime = true;
 	
-	boolean backgroundMusicPlaying = false;
+	
 
 	int level = -1; 
 	boolean level1FirstTime = true;
@@ -279,7 +279,7 @@ public class TankPanel extends JPanel {
 							level = 1;
 							
 							resourceLibrary.playBackground(resourceLibrary.K_backgroundClassic);
-							backgroundMusicPlaying = true;
+							
 							
 						}
 						if(theMenu.clickedButton2(arg0.getX(), arg0.getY())){//survival mode
@@ -289,17 +289,16 @@ public class TankPanel extends JPanel {
 							level = 0;
 							
 							resourceLibrary.playBackground(resourceLibrary.K_backgroundSurvival);
-							backgroundMusicPlaying = true;
+							
 						}
 					}
 					if(inGameOverScreen){
 						if(gameOverScreen.clickedButton1(arg0.getX(), arg0.getY())){
 							resetGame();
 							
-							//TODO resourceLibrary.playClip(resourceLibrary.K_backgroundMenu);
-							backgroundMusicPlaying = true;
+							resourceLibrary.playBackground(resourceLibrary.K_backgroundMenu);
+							
 						}
-						//TODO stop music
 					}
 
 
@@ -506,7 +505,7 @@ public class TankPanel extends JPanel {
 				highScore.writeToFile();
 				
 				inGameOverScreen = true;
-				gameOverScreen = new GameOver(latestScoreClassic, level, true, false);
+				gameOverScreen = new GameOver(latestScoreClassic, level, true, false, resourceLibrary);
 				gameOverScreen.draw(g, resourceLibrary);
 				
 //				cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
@@ -525,7 +524,7 @@ public class TankPanel extends JPanel {
 					latestScoreSurvival = currentArena.numTanksKilled; 
 				
 					
-					gameOverScreen = new GameOver(latestScoreSurvival, level, false, true);
+					gameOverScreen = new GameOver(latestScoreSurvival, level, false, true, resourceLibrary);
 					
 					if(latestScoreSurvival > highScore.getHighScoreSurvival()){
 						highScore.setHighScoreSurvival(latestScoreSurvival);
@@ -538,7 +537,7 @@ public class TankPanel extends JPanel {
 					latestScoreClassic = level-1;
 			
 					
-					gameOverScreen = new GameOver(latestScoreClassic, level, false, false);
+					gameOverScreen = new GameOver(latestScoreClassic, level, false, false, resourceLibrary);
 					
 					if (latestScoreClassic > highScore.getHighScoreClassic()){
 						highScore.setHighScoreClassic(latestScoreClassic);

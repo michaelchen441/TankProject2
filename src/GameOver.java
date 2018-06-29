@@ -8,27 +8,24 @@ public class GameOver {
 	private int level;
 	private boolean gameWon;
 	private boolean survivalMode;
-	
-	private boolean playedSound;
 
 
-	public GameOver(int inScore, int inLevel, boolean inGameWon, boolean inSurvivalMode){
+
+	public GameOver(int inScore, int inLevel, boolean inGameWon, boolean inSurvivalMode, ResourceLibrary l){
 
 		score = inScore;
 		level = inLevel;
 		gameWon = inGameWon;
 		survivalMode = inSurvivalMode;
 
-		playedSound = false;
+		l.playClip(l.K_gameOver);
+		
 	}
 
 
 	public void draw(Graphics g, ResourceLibrary l)
 	{
-		if(!playedSound){
-			l.playClip(l.K_gameOver);
-			playedSound = true;
-		}
+
 		
 		g.drawImage(l.background, 0, 0, null);
 

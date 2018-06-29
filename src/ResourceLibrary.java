@@ -55,10 +55,11 @@ public class ResourceLibrary
 	public int K_tankFiring = 4;
 	public int K_backgroundClassic = 5;
 	public int K_backgroundSurvival = 6;
-	public int K_gameOver = 7;
-	public int K_proj_to_aiTank = 8;
-	public int K_progressLevel = 9;
-	public int K_Max = 10;
+	public int K_backgroundMenu = 7;
+	public int K_gameOver = 8;
+	public int K_proj_to_aiTank = 9;
+	public int K_progressLevel = 10;
+	public int K_Max = 11;
 
 	Clip backgroundMus;
 
@@ -111,12 +112,24 @@ public class ResourceLibrary
 		audioFileNameArr[K_tankFiring]					= "audio/tankFiring.wav";
 		audioFileNameArr[K_backgroundClassic]			= "audio/backgroundClassic.wav";
 		audioFileNameArr[K_backgroundSurvival]			= "audio/backgroundSurvival.wav";
+		audioFileNameArr[K_backgroundMenu]				= "audio/backgroundMenu.wav";
 		audioFileNameArr[K_gameOver]					= "audio/gameOver.wav";
 		audioFileNameArr[K_proj_to_aiTank]				= "audio/proj_to_aiTank.wav";
 		audioFileNameArr[K_progressLevel]				= "audio/progressLevel.wav";
 
+		
 
+		try {
+			AudioInputStream	theStream = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource(audioFileNameArr[7]));
+			backgroundMus = AudioSystem.getClip();
+			backgroundMus.open(theStream);
+			backgroundMus.loop(Clip.LOOP_CONTINUOUSLY);
 
+		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+			// TODO Auto-generated catch bloc catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void playClip(int i) 
@@ -125,7 +138,7 @@ public class ResourceLibrary
 		{
 			AudioInputStream	theStream = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource(audioFileNameArr[i]));
 			Clip clip = AudioSystem.getClip();
-			if(!(i == 5|| i == 6)) {
+			if(!(i == 5|| i == 6 || i == 7)) {
 				clip.open(theStream);
 				clip.start();
 			}
