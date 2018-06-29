@@ -158,9 +158,13 @@ public class Arena
 					g.setColor(Color.BLACK); //Red colored rectangle
 					g.fillRect(650, 0, 70, 50); //Makes rectangle for text
 				}
+				else if(numTanksKilled < 1000){
+					g.setColor(Color.BLACK); //Red colored rectangle
+					g.fillRect(650, 0, 90, 50); //Makes rectangle for text
+				}
 				else {
 					g.setColor(Color.BLACK); //Red colored rectangle
-					g.fillRect(650, 0, 100, 50); //Makes rectangle for text
+					g.fillRect(650, 0, 115, 50); //Makes rectangle for text
 				}
 
 				g.setFont(new Font("TimesRoman", Font.PLAIN, 50)); //Times New Roman font; size 50
@@ -171,7 +175,7 @@ public class Arena
 
 				//check each tank for dead
 				int numTanksAlive = 0;
-				numTanksKilled = 0;		// always recalc
+				numTanksKilled = 998;		// always recalc
 				for(int i = 1; i < tankList.size(); i++){
 					if (tankList.get(i).alive != true){
 						numTanksKilled++;

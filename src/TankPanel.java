@@ -30,7 +30,8 @@ public class TankPanel extends JPanel {
 	boolean survivalModeFirstTime = true;
 	
 	
-
+	boolean gameOverScreenFirstTime = true;
+	
 	int level = -1; 
 	boolean level1FirstTime = true;
 
@@ -410,6 +411,8 @@ public class TankPanel extends JPanel {
 		level = -1;
 		inMenu = true;
 		inGameOverScreen = false;
+		gameOverScreenFirstTime = true;
+		
 		level1FirstTime = true;
 		arenaList = new ArrayList<Arena>();
 
@@ -504,8 +507,13 @@ public class TankPanel extends JPanel {
 				highScore.setHighScoreClassic(13);
 				highScore.writeToFile();
 				
-				inGameOverScreen = true;
-				gameOverScreen = new GameOver(latestScoreClassic, level, true, false, resourceLibrary);
+				
+				if(gameOverScreenFirstTime){
+					inGameOverScreen = true;
+					gameOverScreen = new GameOver(latestScoreClassic, level, true, false, resourceLibrary);	
+					gameOverScreenFirstTime = false;
+				}
+				
 				gameOverScreen.draw(g, resourceLibrary);
 				
 //				cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
@@ -523,8 +531,12 @@ public class TankPanel extends JPanel {
 					
 					latestScoreSurvival = currentArena.numTanksKilled; 
 				
-					
-					gameOverScreen = new GameOver(latestScoreSurvival, level, false, true, resourceLibrary);
+					if(gameOverScreenFirstTime){
+						inGameOverScreen = true;
+						gameOverScreen = new GameOver(latestScoreSurvival, level, false, true, resourceLibrary);	
+						gameOverScreenFirstTime = false;
+					}
+				
 					
 					if(latestScoreSurvival > highScore.getHighScoreSurvival()){
 						highScore.setHighScoreSurvival(latestScoreSurvival);
@@ -536,8 +548,12 @@ public class TankPanel extends JPanel {
 				else{
 					latestScoreClassic = level-1;
 			
+					if(gameOverScreenFirstTime){
+						inGameOverScreen = true;
+						gameOverScreen = new GameOver(latestScoreClassic, level, false, false, resourceLibrary);	
+						gameOverScreenFirstTime = false;
+					}
 					
-					gameOverScreen = new GameOver(latestScoreClassic, level, false, false, resourceLibrary);
 					
 					if (latestScoreClassic > highScore.getHighScoreClassic()){
 						highScore.setHighScoreClassic(latestScoreClassic);
