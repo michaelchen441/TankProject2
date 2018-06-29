@@ -175,7 +175,7 @@ public class Arena
 
 				//check each tank for dead
 				int numTanksAlive = 0;
-				numTanksKilled = 998;		// always recalc
+				numTanksKilled = 0;		// always recalc
 				for(int i = 1; i < tankList.size(); i++){
 					if (tankList.get(i).alive != true){
 						numTanksKilled++;
