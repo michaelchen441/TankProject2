@@ -5,30 +5,27 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+public class ArenaReader
+{
 
+	private String rootPath; // should be "data/arenas/arena"
 
-public class ArenaReader{
-	
-	private String rootPath; //should be "data/arenas/arena"
-
-	public ArenaReader(String inRootPath){
-			rootPath = inRootPath;
+	public ArenaReader(String inRootPath)
+	{
+		rootPath = inRootPath;
 	}
-	
-	public Arena readArena(int inLevel, int inNumWallsAcross, int  inNumWallsDown){
-		
+
+	public Arena readArena(int inLevel, int inNumWallsAcross, int inNumWallsDown, KillData killData)
+	{
+
 		int level = inLevel;
 		String fileName = rootPath + level + ".txt";
-				
-		
-		Arena arena = new Arena(level, inNumWallsAcross, inNumWallsDown);
 
+		Arena arena = new Arena(level, inNumWallsAcross, inNumWallsDown, killData);
 
 		File file = new File(fileName);
 
 		int numLines = inNumWallsDown;
-		
-		
 
 		BufferedReader br = null;
 		try
@@ -40,7 +37,8 @@ public class ArenaReader{
 			e.printStackTrace();
 		}
 
-		for(int row = 0; row < numLines; row++){
+		for (int row = 0; row < numLines; row++)
+		{
 			String str = null;
 			try
 			{
@@ -50,10 +48,12 @@ public class ArenaReader{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			//String[] letters = str.split("");
-			for(int col = 0; col < str.length(); col++){
-				char c =  str.charAt(col);
-				switch (c){
+			// String[] letters = str.split("");
+			for (int col = 0; col < str.length(); col++)
+			{
+				char c = str.charAt(col);
+				switch (c)
+				{
 					case 'W':
 						arena.addWall(row, col, false, false);
 						break;
@@ -93,20 +93,18 @@ public class ArenaReader{
 				}
 			}
 		}
-		
-		return arena;	
+
+		return arena;
 	}
 }
-	
-//	
-//	ArenaReader theReader = new ArenaReader(1);
-//	Arena level1 = theReader.getArena();
-//	
-//	ArenaReader theReader = new ArenaReader(2);
-//	Arena level2 = theReader.getArena();
-//
-//	ArenaReader theReader = new ArenaReader("data/arenas/arena");
-//	Arena level1 = theReader.getArena(1);
-//	Arena level2 = theReader.getArena(2);
 
-	
+//
+// ArenaReader theReader = new ArenaReader(1);
+// Arena level1 = theReader.getArena();
+//
+// ArenaReader theReader = new ArenaReader(2);
+// Arena level2 = theReader.getArena();
+//
+// ArenaReader theReader = new ArenaReader("data/arenas/arena");
+// Arena level1 = theReader.getArena(1);
+// Arena level2 = theReader.getArena(2);

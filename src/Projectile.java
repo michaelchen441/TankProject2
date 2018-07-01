@@ -159,6 +159,7 @@ public class Projectile
 							active = false;
 							myArena.addExplosion((int)xLoc, (int)yLoc, ExplosionType.MEDIUM);	//call arena addExplosion
 							t.alive = false;
+							myArena.killData.addKill(t.type);
 							if(myArena.level == 0){
 								l.playClip(l.K_progressLevel);
 							}
@@ -176,6 +177,7 @@ public class Projectile
 							active = false;
 							myArena.addExplosion((int)xLoc, (int)yLoc, ExplosionType.MEDIUM);	//call arena addExplosion
 							t.alive = false;
+							myArena.killData.addKill(t.type);
 							if(myArena.level == 0){
 								l.playClip(l.K_progressLevel);
 							}
@@ -191,6 +193,7 @@ public class Projectile
 							active = false;
 							myArena.addExplosion((int)xLoc, (int)yLoc, ExplosionType.MEDIUM);	//call arena addExplosion
 							t.alive = false;
+							myArena.killData.addKill(t.type);
 							if(myArena.level == 0){
 								l.playClip(l.K_progressLevel);
 							}
@@ -207,6 +210,7 @@ public class Projectile
 							active = false;
 							myArena.addExplosion((int)xLoc, (int)yLoc, ExplosionType.MEDIUM);	//call arena addExplosion
 							t.alive = false;
+							myArena.killData.addKill(t.type);
 							if(myArena.level == 0){
 								l.playClip(l.K_progressLevel);
 							}

@@ -13,11 +13,12 @@ public class HighScore
 	private int highScoreClassic;
 	private String fileName;
 
-
-	public HighScore(){
+	public HighScore()
+	{
 		fileName = "data/highScores.txt";
 
-		if(!readFromFile()){		
+		if (!readFromFile())
+		{
 			// file is empty, start it with "0 0"
 			highScoreSurvival = 0;
 			highScoreClassic = 0;
@@ -26,61 +27,65 @@ public class HighScore
 
 	}
 
-	public void setHighScoreSurvival(int score){
+	public void setHighScoreSurvival(int score)
+	{
 		highScoreSurvival = score;
 	}
 
-	public void setHighScoreClassic(int score){
+	public void setHighScoreClassic(int score)
+	{
 		highScoreClassic = score;
 	}
 
-	public int getHighScoreSurvival(){
+	public int getHighScoreSurvival()
+	{
 		return highScoreSurvival;
 	}
 
-	public int getHighScoreClassic(){
+	public int getHighScoreClassic()
+	{
 		return highScoreClassic;
 	}
 
-	public void writeToFile(){
-		//check if file exists
-
-	
+	public void writeToFile()
+	{
+		// check if file exists
 
 		File file = new File(fileName);
 
 		FileWriter fr = null;
 		BufferedWriter br = null;
-		
-		String dataForFile1 = ""+highScoreClassic+System.getProperty("line.separator");
-		String dataForFile2 = ""+highScoreSurvival+System.getProperty("line.separator");
-		
-		
-		
-		try{
+
+		String dataForFile1 = "" + highScoreClassic + System.getProperty("line.separator");
+		String dataForFile2 = "" + highScoreSurvival + System.getProperty("line.separator");
+
+		try
+		{
 			fr = new FileWriter(file, false);
 			br = new BufferedWriter(fr);
 			br.write(dataForFile1);
 			br.write(dataForFile2);
-		} catch (IOException e) {
+		} catch (IOException e)
+		{
 			e.printStackTrace();
-		}finally{
-			try {
+		} finally
+		{
+			try
+			{
 				br.close();
 				fr.close();
-			} catch (IOException e) {
+			} catch (IOException e)
+			{
 				e.printStackTrace();
 			}
 		}
 
-
-
-
 	}
 
-	private boolean readFromFile(){//set variables by reading in from file
-		//return true if successfully read
-		//open file and read
+	private boolean readFromFile()
+	{// set variables by reading in from file
+		// return true if successfully read
+		// open file and read
 		File file = new File(fileName);
 
 		BufferedReader br = null;
