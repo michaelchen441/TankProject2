@@ -457,7 +457,7 @@ public class TankPanel extends JPanel {
 		else{
 			if(level1FirstTime){
 
-				ArenaReader arenaReader = new ArenaReader("arenas/arena");
+				ArenaReader arenaReader = new ArenaReader("src/arenas/arena");
 				
 				Arena survivalArena = arenaReader.readArena(0, numWallsAcross, numWallsDown);
 				Arena level1Arena = arenaReader.readArena(1, numWallsAcross, numWallsDown);

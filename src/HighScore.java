@@ -15,7 +15,7 @@ public class HighScore
 
 
 	public HighScore(){
-		fileName = "data/highScores.txt";
+		fileName = "src/highScoreFolder/highScores.txt";
 
 		if(!readFromFile()){		
 			// file is empty, start it with "0 0"
