@@ -1,13 +1,4 @@
-import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.geom.Point2D;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
 
 public class AITank extends Tank // AI Tank is a specific type of Tank
 {
@@ -24,11 +15,9 @@ public class AITank extends Tank // AI Tank is a specific type of Tank
 	boolean intersect;
 	boolean commit;
 
-	TankType type1;
-
 	public AITank(TankType inType, int inX, int inY, Arena inArena)
 	{
-		super(inArena); // Calls superclass contructor which takes in all walls
+		super(inArena); // Calls superclass constructor which takes in all walls
 						// in arena
 		alive = true;
 		type = inType;
@@ -45,6 +34,9 @@ public class AITank extends Tank // AI Tank is a specific type of Tank
 
 		switch (type)
 		{
+			case GREEN:
+				// Green is PlayerTank.  This case should never happen here
+				break;
 			case BLUE:
 				tankSlowMultiplier = 10000;
 				break;
@@ -89,20 +81,6 @@ public class AITank extends Tank // AI Tank is a specific type of Tank
 		fireSlowMultiplier = 400;
 
 		commit = false;
-		type1 = inType;
-		// for(int r = 0; r<surroundingWalls.length; r++) {
-		// for(int c = 0; c<surroundingWalls[r].length; c++) {
-		// if(surroundingWalls[r][c] != null) {
-		// wallsInBetween.add(surroundingWalls[r][c]);
-		// }
-		// }
-		// }
-		// gets all walls in between the player tank and the AI tank and puts
-		// them into a list
-		// there are four statements because, putting the ai tank at the origin
-		// of a hypothetical graph, the player tank has 4 possible quadrant
-		// locations
-
 	}
 
 	// Need to figure out mechanism by which AI Tank Moves

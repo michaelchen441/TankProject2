@@ -11,13 +11,14 @@ public class Explosion
 	private int drawTries;
 	private int drawSlowMultiplier;
 
-	private int srcFrameSize = 134;
+	private int srcFrameSize;
 	private int dstFrameSize;
 	private int objectSize;
 
 	public Explosion(int inX, int inY, ExplosionType inType)
 	{
-
+		srcFrameSize = 134;
+	
 		type = inType;
 
 		switch (type)
@@ -56,8 +57,19 @@ public class Explosion
 		} else
 		{
 
-			g.drawImage(l.explosion, xLoc, yLoc, xLoc + dstFrameSize, yLoc + dstFrameSize, frameCount * srcFrameSize, 0,
-					(frameCount * srcFrameSize) + srcFrameSize, srcFrameSize, null);
+			g.drawImage(l.explosion,
+						// target rect
+						xLoc,
+						yLoc,
+						xLoc + dstFrameSize,
+						yLoc + dstFrameSize,
+						// source rect from the animation strip
+						frameCount * srcFrameSize,
+						0,
+						(frameCount * srcFrameSize) + srcFrameSize,
+						srcFrameSize,
+						// -----------
+						null);
 		}
 
 		drawTries++;

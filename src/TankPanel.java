@@ -12,6 +12,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -60,6 +61,7 @@ public class TankPanel extends JPanel
 
 	public KillData killData;
 
+	public boolean soundOn = true;
 	ResourceLibrary resourceLibrary = new ResourceLibrary();
 
 	int crosshairX;
@@ -291,6 +293,7 @@ public class TankPanel extends JPanel
 							killData = new KillData(GameMode.CLASSIC);
 							resourceLibrary.playBackground(resourceLibrary.K_backgroundClassic);
 
+
 						}
 						if (theMenu.clickedButton2(arg0.getX(), arg0.getY()))
 						{// survival mode
@@ -301,6 +304,20 @@ public class TankPanel extends JPanel
 
 							killData = new KillData(GameMode.SURVIVAL);
 							resourceLibrary.playBackground(resourceLibrary.K_backgroundSurvival);
+
+						}
+						if (theMenu.clickedSoundButton(arg0.getX(), arg0.getY()))
+						{// toggle sound
+							soundOn = !soundOn;
+							resourceLibrary.setSound(soundOn);
+							if(!soundOn)
+							{
+								resourceLibrary.stopBackground();
+							}
+							else
+							{
+								resourceLibrary.playBackground(resourceLibrary.K_backgroundMenu);
+							}
 
 						}
 					}
@@ -472,14 +489,14 @@ public class TankPanel extends JPanel
 
 		if (inMenu)
 		{
-			theMenu.draw(g, resourceLibrary, highScore.getHighScoreSurvival(), highScore.getHighScoreClassic());
+			theMenu.draw(g, resourceLibrary, highScore.getHighScoreSurvival(), highScore.getHighScoreClassic(), soundOn);
 			// TODO add menu music
 		} else
 		{
 			if (level1FirstTime)
 			{
 
-				ArenaReader arenaReader = new ArenaReader("data/arenas/arena");
+				ArenaReader arenaReader = new ArenaReader("src/arenas/arena");
 
 				Arena survivalArena = arenaReader.readArena(0, numWallsAcross, numWallsDown, killData);
 				Arena level1Arena = arenaReader.readArena(1, numWallsAcross, numWallsDown, killData);
@@ -530,7 +547,7 @@ public class TankPanel extends JPanel
 				if (gameOverScreenFirstTime)
 				{
 					inGameOverScreen = true;
-					gameOverScreen = new GameOver(latestScoreClassic, level, true, GameMode.CLASSIC, resourceLibrary);
+					gameOverScreen = new GameOver(latestScoreClassic, true, GameMode.CLASSIC, resourceLibrary);
 					gameOverScreenFirstTime = false;
 				}
 
@@ -558,8 +575,7 @@ public class TankPanel extends JPanel
 					if (gameOverScreenFirstTime)
 					{
 						inGameOverScreen = true;
-						gameOverScreen = new GameOver(latestScoreSurvival, level, false, GameMode.SURVIVAL,
-								resourceLibrary);
+						gameOverScreen = new GameOver(latestScoreSurvival, false, GameMode.SURVIVAL, resourceLibrary);
 						gameOverScreenFirstTime = false;
 					}
 
@@ -577,8 +593,7 @@ public class TankPanel extends JPanel
 					if (gameOverScreenFirstTime)
 					{
 						inGameOverScreen = true;
-						gameOverScreen = new GameOver(latestScoreClassic, level, false, GameMode.CLASSIC,
-								resourceLibrary);
+						gameOverScreen = new GameOver(latestScoreClassic, false, GameMode.CLASSIC, resourceLibrary);
 						gameOverScreenFirstTime = false;
 					}
 

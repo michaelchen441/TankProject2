@@ -5,7 +5,7 @@ import java.awt.Graphics;
 //Pops up everytime you die/lose
 public class Menu
 {
-	int titleX = 200;
+	int titleX = 50;
 	int titleY = 175;
 
 	int scoreTextX = 50;
@@ -19,11 +19,19 @@ public class Menu
 	int button2Y = 370;
 	int buttonHeight = 100;
 	int buttonWidth = 460;
+	
+	int soundButtonX = 1190;
+	int soundButtonY = 60;
+	int soundButtonHeight = 115;
+	int soundButtonWidth = 110;
+	int soundButtonText1X = 1200;
+	int soundButtonText2X = 1225;
+	int soundButtonText1Y = 100;
+	int soundButtonText2Y = 150;
 
-	private int highScore; // Displays your highscore
 
 	// at some point make panels inMenu false
-	void draw(Graphics g, ResourceLibrary l, int inSurvivalHighScore, int inClassicHighScore)
+	void draw(Graphics g, ResourceLibrary l, int inSurvivalHighScore, int inClassicHighScore, boolean soundOn)
 	{
 		// draw background
 		g.drawImage(l.background, 0, 0, null);
@@ -41,66 +49,57 @@ public class Menu
 
 		Color darkGreen = new Color(0, 102, 0);
 		g.setColor(darkGreen);
-		g.drawString("Campaign high score = " + inClassicHighScore, scoreTextX, text1Y); // Constructs
-																							// the
-																							// text
-																							// and
-																							// draws
-																							// it
-																							// on
-																							// panel
+		g.drawString("Campaign high score = " + inClassicHighScore, scoreTextX, text1Y); // Constructs the text and draws it on panel
 		Color darkBlue = new Color(0, 0, 153);
 		g.setColor(darkBlue); // Black colored text
-		g.drawString("Survival high score = " + inSurvivalHighScore, scoreTextX, text2Y); // Constructs
-																							// the
-																							// text
-																							// and
-																							// draws
-																							// it
-																							// on
-																							// panel
-
+		g.drawString("Survival high score = " + inSurvivalHighScore, scoreTextX, text2Y);  // Constructs the text and draws it on panel
+																							
 		// draw button to start classsic game
 		g.setColor(Color.GRAY); // Red colored rectangle
-		g.fillRect(buttonX, button1Y, buttonWidth, buttonHeight); // Makes
-																	// rectangle
-																	// containing
-																	// start
-																	// button
+		g.fillRect(buttonX, button1Y, buttonWidth, buttonHeight); // Makes rectangle containing start button
 
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 50)); // Times New Roman
 															// font; size 200
 		g.setColor(darkGreen); // Black colored text
-		g.drawString("Play Campaign Mode", buttonText1X, text1Y); // Constructs
-																	// the text
-																	// and draws
-																	// it on
-																	// panel
+		g.drawString("Play Campaign Mode", buttonText1X, text1Y); // Constructs the text and draws it on panel
 
+																
 		// draw button to start game mode 2
 		g.setColor(Color.GRAY); // Red colored rectangle
-		g.fillRect(buttonX, button2Y, buttonWidth, buttonHeight); // Makes
-																	// rectangle
-																	// containing
-																	// start
-																	// button
+		g.fillRect(buttonX, button2Y, buttonWidth, buttonHeight); // Makes rectangle containing start button
 
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 50)); // Times New Roman
 															// font; size 200
 		g.setColor(darkBlue); // Black colored text
-		g.drawString("Play Survival Mode", buttonText2X, text2Y); // Constructs
-																	// the text
-																	// and draws
-																	// it on
-																	// panel
+		g.drawString("Play Survival Mode", buttonText2X, text2Y);// Constructs the text and draws it on panel
 
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 50)); // Times New Roman
 															// font; size 200
-		// g.drawString("Play Survival Mode", buttonText2X, text2Y);
+		
+		//draw button to toggle sound
+		g.setColor(Color.BLACK);
+		g.fillRect(soundButtonX, soundButtonY, soundButtonWidth, soundButtonHeight); // Makes rectangle containing start button
+		
+		
+		g.setFont(new Font("TimesRoman", Font.PLAIN, 35));
+		
+		
+		if(soundOn){
+			g.setColor(Color.GREEN);
+			g.drawString("Sound", soundButtonText1X, soundButtonText1Y);
+			g.drawString("On", soundButtonText2X, soundButtonText2Y);
+		}
+		else{
+			g.setColor(Color.RED);
+			g.drawString("Sound", soundButtonText1X, soundButtonText1Y);
+			g.drawString("Off", soundButtonText2X, soundButtonText2Y);
+		}
+		
+		
+		
 		// //Constructs the text and draws it on panel
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 35));
-
 		g.setColor(Color.BLACK);
 		g.drawString("Controls", 50, 550);
 		g.drawLine(45, 552, 186, 552);
@@ -139,4 +138,15 @@ public class Menu
 		}
 		return false;
 	}
+	
+	public boolean clickedSoundButton(int x, int y)
+	{ // to toggle sound
+		if ((x >= soundButtonX && x <= soundButtonX + soundButtonWidth) && (y >= soundButtonY && y <= soundButtonY + soundButtonHeight))
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	
 }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public abstract class Tank
 {
-	Arena arena;
+
 	TankType type; // AI or PlayerTank
 	int height; // Dimension
 	int width; // Dimension
@@ -18,11 +18,7 @@ public abstract class Tank
 	int xLoc; // X Location
 	int yLoc; // Y Location
 	boolean alive; // Status alive or dead
-	ArrayList<Projectile> stockPile = new ArrayList<Projectile>(); // Number of
-																	// bullets
-																	// available
-																	// to fire
-	Wall[][] surroundingWalls; // Used to keep track of surrounding walls
+	ArrayList<Projectile> stockPile = new ArrayList<Projectile>(); // Number of bullets available to fire
 
 	double turretAngle;// Angle of turret in radians, counterclockwise (0 is
 						// positive X axis, PI/2 is point up)
@@ -42,10 +38,16 @@ public abstract class Tank
 	// to move in
 
 	int numMoveTries = 0;// Number of times the tank has tried to move
-	int tankSlowMultiplier = 2;// ex. 1 is fastest, 3 is 1/3 speed
+	int tankSlowMultiplier;// ex. 1 is fastest, 3 is 1/3 speed
+	
+	// TODO: remove these from class
+	Arena arena;
+	Wall[][] surroundingWalls; // Used to keep track of surrounding walls
 
 	public Tank(Arena inArena)
 	{
+		tankSlowMultiplier = 2;
+		
 		arena = inArena;
 		surroundingWalls = inArena.walls;
 		height = 28; // Fixed height for all tanks

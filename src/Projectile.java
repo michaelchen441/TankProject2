@@ -1,7 +1,5 @@
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
@@ -10,17 +8,19 @@ public class Projectile
 	double xLoc; //location of tip; translate to draw but not for hit detection
 	double yLoc; //
 
-	double speed;
-	double angle; //Angle of projectile in radians, counterclockwise (0 is positive X axis, PI/2 is point up)
+	double speed;	//	number of pixels per timer tick
+	double angle;	//Angle of projectile in radians, counterclockwise (0 is positive X axis, PI/2 is point up)
 	boolean active; //for playertank to remove from stockpile once not active
-	Wall[][] walls;
-	TankType type;
-	int numWallHits;
-	int numMoveTries;
+	int numWallHits;	//	
+	int numMoveTries;	//	
 	int projectileSlowMultiplier;
-	Arena myArena;
 	int maxNumWallHits;
+	
+	// TODO remove these from the class
+	Arena myArena;
+	Wall[][] walls;
 
+	
 	//use to stop projectile early for visualizing
 	//int numDraws; 
 
@@ -30,10 +30,9 @@ public class Projectile
 		yLoc = y;
 		angle = a;
 		walls = inArena.walls;
-		type = inType;
 		angle = a;
 		myArena = inArena;
-		switch(type){
+		switch(inType){
 		case GREEN: 
 			speed = 3;
 			maxNumWallHits = 1;
@@ -160,7 +159,7 @@ public class Projectile
 							myArena.addExplosion((int)xLoc, (int)yLoc, ExplosionType.MEDIUM);	//call arena addExplosion
 							t.alive = false;
 							myArena.killData.addKill(t.type);
-							if(myArena.level == 0){
+							if(myArena.level == 0 && !t.type.equals(TankType.GREEN)){
 								l.playClip(l.K_progressLevel);
 							}
 							l.playClip(l.K_proj_to_aiTank);
@@ -178,7 +177,7 @@ public class Projectile
 							myArena.addExplosion((int)xLoc, (int)yLoc, ExplosionType.MEDIUM);	//call arena addExplosion
 							t.alive = false;
 							myArena.killData.addKill(t.type);
-							if(myArena.level == 0){
+							if(myArena.level == 0 && !t.type.equals(TankType.GREEN)){
 								l.playClip(l.K_progressLevel);
 							}
 							l.playClip(l.K_proj_to_aiTank);
@@ -194,7 +193,7 @@ public class Projectile
 							myArena.addExplosion((int)xLoc, (int)yLoc, ExplosionType.MEDIUM);	//call arena addExplosion
 							t.alive = false;
 							myArena.killData.addKill(t.type);
-							if(myArena.level == 0){
+							if(myArena.level == 0 && !t.type.equals(TankType.GREEN)){
 								l.playClip(l.K_progressLevel);
 							}
 							l.playClip(l.K_proj_to_aiTank);
@@ -211,7 +210,7 @@ public class Projectile
 							myArena.addExplosion((int)xLoc, (int)yLoc, ExplosionType.MEDIUM);	//call arena addExplosion
 							t.alive = false;
 							myArena.killData.addKill(t.type);
-							if(myArena.level == 0){
+							if(myArena.level == 0 && !t.type.equals(TankType.GREEN)){
 								l.playClip(l.K_progressLevel);
 							}
 							l.playClip(l.K_proj_to_aiTank);

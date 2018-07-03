@@ -5,8 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
-import javax.swing.Timer;
-
 public class Arena
 {
 	int level; // Specifies which level and a specific arena
@@ -18,7 +16,7 @@ public class Arena
 	PlayerTank playerTank; // Tank controlled by player
 
 	int numTanksKilled;
-	int recentNumTanksKilled = 0;
+	int recentNumTanksKilled;
 
 	// Note about TankList
 	// New Tanklist is created with the creation of a new arena
@@ -59,7 +57,8 @@ public class Arena
 		advanceLevel = false;
 		startingTransition = false;
 		transitionWalls = new Wall[numWallsDown][numWallsAcross];
-
+		
+		recentNumTanksKilled = 0;
 		killData = inKillData;
 
 		for (int r = 0; r < numWallsDown; r++)
@@ -447,18 +446,8 @@ public class Arena
 		int xTurretRotateOffset = 10;
 		int yTurretRotateOffset = 40;
 
-		theAT.rotate((Math.PI * 0.5), xTurretImageLoc + xTurretRotateOffset, yTurretImageLoc + yTurretRotateOffset); // add
-																														// PI/2
-																														// because
-																														// turret
-																														// image
-																														// is
-																														// upwards
-																														// so
-																														// that
-																														// starts
-																														// it
-																														// horizontal
+		// add PI/2 because turret image is upwards so that starts it horizontal
+		theAT.rotate((Math.PI * 0.5), xTurretImageLoc + xTurretRotateOffset, yTurretImageLoc + yTurretRotateOffset); 
 
 		g2D.transform(theAT);
 		g.drawImage(l.blueTurret, xTurretImageLoc, yTurretImageLoc, null);
@@ -473,18 +462,8 @@ public class Arena
 		int xTurretImageLoc2 = 350 + 15;
 		int yTurretImageLoc2 = 300 - 15;
 
-		theAT2.rotate((Math.PI * 0.5), xTurretImageLoc2 + xTurretRotateOffset, yTurretImageLoc2 + yTurretRotateOffset); // add
-																														// PI/2
-																														// because
-																														// turret
-																														// image
-																														// is
-																														// upwards
-																														// so
-																														// that
-																														// starts
-																														// it
-																														// horizontal
+		// add PI/2 because turret image is upwards so that starts it horizontal
+		theAT2.rotate((Math.PI * 0.5), xTurretImageLoc2 + xTurretRotateOffset, yTurretImageLoc2 + yTurretRotateOffset);
 
 		g2D2.transform(theAT2);
 		g.drawImage(l.redTurret, xTurretImageLoc2, yTurretImageLoc2, null);
@@ -499,18 +478,8 @@ public class Arena
 		int xTurretImageLoc3 = 350 + 15;
 		int yTurretImageLoc3 = 370 - 15;
 
-		theAT3.rotate((Math.PI * 0.5), xTurretImageLoc3 + xTurretRotateOffset, yTurretImageLoc3 + yTurretRotateOffset); // add
-																														// PI/2
-																														// because
-																														// turret
-																														// image
-																														// is
-																														// upwards
-																														// so
-																														// that
-																														// starts
-																														// it
-																														// horizontal
+		// add PI/2 because turret image is upwards so that starts it horizontal
+		theAT3.rotate((Math.PI * 0.5), xTurretImageLoc3 + xTurretRotateOffset, yTurretImageLoc3 + yTurretRotateOffset);
 
 		g2D3.transform(theAT3);
 		g.drawImage(l.blackTurret, xTurretImageLoc3, yTurretImageLoc3, null);
@@ -525,18 +494,8 @@ public class Arena
 		int xTurretImageLoc4 = 350 + 15;
 		int yTurretImageLoc4 = 440 - 15;
 
-		theAT4.rotate((Math.PI * 0.5), xTurretImageLoc4 + xTurretRotateOffset, yTurretImageLoc4 + yTurretRotateOffset); // add
-																														// PI/2
-																														// because
-																														// turret
-																														// image
-																														// is
-																														// upwards
-																														// so
-																														// that
-																														// starts
-																														// it
-																														// horizontal
+		// add PI/2 because turret image is upwards so that starts it horizontal
+		theAT4.rotate((Math.PI * 0.5), xTurretImageLoc4 + xTurretRotateOffset, yTurretImageLoc4 + yTurretRotateOffset);
 
 		g2D4.transform(theAT4);
 		g.drawImage(l.whiteTurret, xTurretImageLoc4, yTurretImageLoc4, null);
@@ -551,18 +510,8 @@ public class Arena
 		int xTurretImageLoc5 = 350 + 15;
 		int yTurretImageLoc5 = 510 - 15;
 
-		theAT5.rotate((Math.PI * 0.5), xTurretImageLoc5 + xTurretRotateOffset, yTurretImageLoc5 + yTurretRotateOffset); // add
-																														// PI/2
-																														// because
-																														// turret
-																														// image
-																														// is
-																														// upwards
-																														// so
-																														// that
-																														// starts
-																														// it
-																														// horizontal
+		// add PI/2 because turret image is upwards so that starts it horizontal
+		theAT5.rotate((Math.PI * 0.5), xTurretImageLoc5 + xTurretRotateOffset, yTurretImageLoc5 + yTurretRotateOffset);
 
 		g2D5.transform(theAT5);
 		g.drawImage(l.pinkTurret, xTurretImageLoc5, yTurretImageLoc5, null);
@@ -577,18 +526,8 @@ public class Arena
 		int xTurretImageLoc6 = 350 + 15;
 		int yTurretImageLoc6 = 580 - 15;
 
-		theAT6.rotate((Math.PI * 0.5), xTurretImageLoc6 + xTurretRotateOffset, yTurretImageLoc6 + yTurretRotateOffset); // add
-																														// PI/2
-																														// because
-																														// turret
-																														// image
-																														// is
-																														// upwards
-																														// so
-																														// that
-																														// starts
-																														// it
-																														// horizontal
+		// add PI/2 because turret image is upwards so that starts it horizontal
+		theAT6.rotate((Math.PI * 0.5), xTurretImageLoc6 + xTurretRotateOffset, yTurretImageLoc6 + yTurretRotateOffset);
 
 		g2D6.transform(theAT6);
 		g.drawImage(l.yellowTurret, xTurretImageLoc6, yTurretImageLoc6, null);
@@ -598,159 +537,17 @@ public class Arena
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 45));
 
-		int blueDestroyed = killData.getNumKills(TankType.BLUE);
-		int redDestroyed = killData.getNumKills(TankType.RED);
-		int blackDestroyed = killData.getNumKills(TankType.BLACK);
-		int whiteDestroyed = killData.getNumKills(TankType.WHITE);
-		int pinkDestroyed = killData.getNumKills(TankType.PINK);
-		int yellowDestroyed = killData.getNumKills(TankType.YELLOW);
-		int invisibleDestroyed = killData.getNumKills(TankType.INVISIBLE);
-
-		// if(levelCount == 1) {
-		// blueDestroyed = 1;
-		// redDestroyed = 0;
-		// blackDestroyed = 0;
-		// whiteDestroyed = 0;
-		// pinkDestroyed = 0;
-		// yellowDestroyed = 0;
-		// invisibleDestroyed = 0;
-		// }
-		// else if(levelCount == 2) {
-		// blueDestroyed = 0;
-		// redDestroyed = 1;
-		// blackDestroyed = 0;
-		// whiteDestroyed = 0;
-		// pinkDestroyed = 0;
-		// yellowDestroyed = 0;
-		// invisibleDestroyed = 0;
-		// }
-		// else if(levelCount == 3) {
-		// blueDestroyed = 1;
-		// redDestroyed = 2;
-		// blackDestroyed = 0;
-		// whiteDestroyed = 0;
-		// pinkDestroyed = 0;
-		// yellowDestroyed = 0;
-		// invisibleDestroyed = 0;
-		//
-		// }
-		// else if(levelCount == 4) {
-		// blueDestroyed = 2;
-		// redDestroyed = 2;
-		// blackDestroyed = 0;
-		// whiteDestroyed = 0;
-		// pinkDestroyed = 0;
-		// yellowDestroyed = 0;
-		// invisibleDestroyed = 0;
-		// }
-		// else if(levelCount == 5) {
-		// blueDestroyed = 0;
-		// redDestroyed = 0;
-		// blackDestroyed = 2;
-		// whiteDestroyed = 0;
-		// pinkDestroyed = 0;
-		// yellowDestroyed = 0;
-		// invisibleDestroyed = 0;
-		// }
-		// else if(levelCount == 6) {
-		// blueDestroyed = 2;
-		// redDestroyed = 0;
-		// blackDestroyed = 3;
-		// whiteDestroyed = 0;
-		// pinkDestroyed = 0;
-		// yellowDestroyed = 0;
-		// invisibleDestroyed = 0;
-		// }
-		// else if(levelCount == 7) {
-		// blueDestroyed = 2;
-		// redDestroyed = 0;
-		// blackDestroyed = 3;
-		// whiteDestroyed = 0;
-		// pinkDestroyed = 0;
-		// yellowDestroyed = 0;
-		// invisibleDestroyed = 0;
-		// }
-		// else if(levelCount == 8) {
-		// blueDestroyed = 0;
-		// redDestroyed = 0;
-		// blackDestroyed = 2;
-		// whiteDestroyed = 2;
-		// pinkDestroyed = 0;
-		// yellowDestroyed = 0;
-		// invisibleDestroyed = 0;
-		// }
-		// else if(levelCount == 9) {
-		// blueDestroyed = 0;
-		// redDestroyed = 0;
-		// blackDestroyed = 2;
-		// whiteDestroyed = 2;
-		// pinkDestroyed = 0;
-		// yellowDestroyed = 0;
-		// invisibleDestroyed = 0;
-		// }
-		// else if(levelCount == 10) {
-		// blueDestroyed = 0;
-		// redDestroyed = 0;
-		// blackDestroyed = 2;
-		// whiteDestroyed = 0;
-		// pinkDestroyed = 2;
-		// yellowDestroyed = 1;
-		// invisibleDestroyed = 0;
-		// }
-		// else if(levelCount == 11) {
-		// blueDestroyed = 0;
-		// redDestroyed = 0;
-		// blackDestroyed = 0;
-		// whiteDestroyed = 1;
-		// pinkDestroyed = 2;
-		// yellowDestroyed = 1;
-		// invisibleDestroyed = 2;
-		// }
-		// else if(levelCount == 12) {
-		// blueDestroyed = 0;
-		// redDestroyed = 0;
-		// blackDestroyed = 1;
-		// whiteDestroyed = 2;
-		// pinkDestroyed = 2;
-		// yellowDestroyed = 2;
-		// invisibleDestroyed = 2;
-		// }
-
-		g.drawString(Integer.toString(blueDestroyed), 650, 272);
-		g.drawString(Integer.toString(redDestroyed), 650, 342);
-		g.drawString(Integer.toString(blackDestroyed), 650, 412);
-		g.drawString(Integer.toString(whiteDestroyed), 650, 482);
-		g.drawString(Integer.toString(pinkDestroyed), 650, 552);
-		g.drawString(Integer.toString(yellowDestroyed), 650, 622);
-		g.drawString(Integer.toString(invisibleDestroyed), 650, 692);
-
-		g.drawString("x", 500, 272);
-		g.drawString("x", 500, 342);
-		g.drawString("x", 500, 412);
-		g.drawString("x", 500, 482);
-		g.drawString("x", 500, 552);
-		g.drawString("x", 500, 622);
-		g.drawString("x", 500, 692);
-
-		g.drawString("=", 800, 272);
-		g.drawString("=", 800, 342);
-		g.drawString("=", 800, 412);
-		g.drawString("=", 800, 482);
-		g.drawString("=", 800, 552);
-		g.drawString("=", 800, 622);
-		g.drawString("=", 800, 692);
-
-		g.drawString(Integer.toString(blueDestroyed * 10), 930, 272);
-		g.drawString(Integer.toString(redDestroyed * 50), 930, 342);
-		g.drawString(Integer.toString(blackDestroyed * 125), 930, 412);
-		g.drawString(Integer.toString(whiteDestroyed * 150), 930, 482);
-		g.drawString(Integer.toString(pinkDestroyed * 75), 930, 552);
-		g.drawString(Integer.toString(yellowDestroyed * 100), 930, 622);
-		g.drawString(Integer.toString(invisibleDestroyed * 200), 930, 692);
-
-		int totalScore = (blueDestroyed * 10) + (redDestroyed * 50) + (blackDestroyed * 125) + (whiteDestroyed * 150)
-				+ (pinkDestroyed * 75) + (yellowDestroyed * 100) + (invisibleDestroyed * 200);
-
+		
+		int totalScore = 0;
+		totalScore += drawScoreOneLine(g, TankType.BLUE, 10, 272);
+		totalScore += drawScoreOneLine(g, TankType.RED, 20, 342);
+		totalScore += drawScoreOneLine(g, TankType.BLACK, 50, 412);
+		totalScore += drawScoreOneLine(g, TankType.WHITE, 60, 482);
+		totalScore += drawScoreOneLine(g, TankType.PINK, 75, 552);
+		totalScore += drawScoreOneLine(g, TankType.YELLOW, 75, 622);
+		totalScore += drawScoreOneLine(g, TankType.INVISIBLE, 125, 692);
+		
+		
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 60));
 		g.drawString(Integer.toString(totalScore), 1133, 460);
 		g.drawString("Total Score", 1018, 400);
@@ -759,6 +556,22 @@ public class Arena
 		String levelCompletion = "Level " + levelCount + " Completed";
 		g.drawString(levelCompletion, 100, 200);
 
+	}
+	
+	private int drawScoreOneLine(Graphics g, TankType inType, int inScaler, int inY)
+	{
+		int numDestroyed = killData.getNumKills(inType);
+		int score = numDestroyed * inScaler;
+
+		g.drawString(Integer.toString(numDestroyed), 650, inY);
+
+		g.drawString("x", 500, inY);
+
+		g.drawString("=", 800, inY);
+		
+		g.drawString(Integer.toString(score), 930, inY);
+
+		return score;
 	}
 
 	// Sets amount a certain tank has to move based on keypress

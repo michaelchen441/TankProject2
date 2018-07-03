@@ -1,7 +1,4 @@
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 
@@ -12,14 +9,10 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import com.sun.javafx.tk.Toolkit;
-
-import sun.audio.AudioData;
-import sun.audio.AudioStream;
-import sun.audio.ContinuousAudioDataStream;
-
 public class ResourceLibrary
 {
+	
+	boolean soundOn = true;
 
 	// create all images
 	public BufferedImage background;
@@ -68,7 +61,14 @@ public class ResourceLibrary
 	public ResourceLibrary()
 	{
 		try
-		{
+		{	
+			System.out.println(getClass());
+			System.out.println(this.getClass());
+			String fileName = "images/Background2.png";
+			System.out.println("FileName = " + fileName);			
+			URL theURL = this.getClass().getClassLoader().getResource(fileName);
+			System.out.println("theURL = " + theURL);
+			background = ImageIO.read(theURL);
 
 			background = ImageIO.read(getClass().getResource("images/Background2.png"));
 			crosshair = ImageIO.read(getClass().getResource("images/crosshair.png"));
@@ -131,41 +131,60 @@ public class ResourceLibrary
 
 	public void playClip(int i)
 	{
-		try
+		if(soundOn)
 		{
-			AudioInputStream theStream = AudioSystem
-					.getAudioInputStream(this.getClass().getClassLoader().getResource(audioFileNameArr[i]));
-			Clip clip = AudioSystem.getClip();
-			if (!(i == 5 || i == 6 || i == 7))
+			try
 			{
-				clip.open(theStream);
-				clip.start();
+				AudioInputStream theStream = AudioSystem
+						.getAudioInputStream(this.getClass().getClassLoader().getResource(audioFileNameArr[i]));
+				Clip clip = AudioSystem.getClip();
+				if (!(i == 5 || i == 6 || i == 7))
+				{
+					clip.open(theStream);
+					clip.start();
+				}
+			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 
 	public void playBackground(int i)
 	{
-		try
+		if(soundOn)
+		{
+			try
+			{
+				backgroundMus.stop();
+				AudioInputStream theStream = AudioSystem
+						.getAudioInputStream(this.getClass().getClassLoader().getResource(audioFileNameArr[i]));
+				backgroundMus = AudioSystem.getClip();
+				backgroundMus.open(theStream);
+				backgroundMus.loop(Clip.LOOP_CONTINUOUSLY);
+
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e)
+			{
+				// TODO Auto-generated catch bloc catch (LineUnavailableException e)
+				// {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else
 		{
 			backgroundMus.stop();
-			AudioInputStream theStream = AudioSystem
-					.getAudioInputStream(this.getClass().getClassLoader().getResource(audioFileNameArr[i]));
-			backgroundMus = AudioSystem.getClip();
-			backgroundMus.open(theStream);
-			backgroundMus.loop(Clip.LOOP_CONTINUOUSLY);
-
-		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e)
-		{
-			// TODO Auto-generated catch bloc catch (LineUnavailableException e)
-			// {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-
 	}
+	
+	public void stopBackground()
+	{
+		backgroundMus.stop();
+	}
+	
+	public void setSound(boolean on){
+		soundOn = on;
+	}
+	
 }

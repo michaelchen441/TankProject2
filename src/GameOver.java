@@ -6,15 +6,13 @@ public class GameOver
 {
 
 	private int score;
-	private int level;
 	private boolean gameWon;
 	private GameMode gameMode;
 
-	public GameOver(int inScore, int inLevel, boolean inGameWon, GameMode inGameMode, ResourceLibrary l)
+	public GameOver(int inScore, boolean inGameWon, GameMode inGameMode, ResourceLibrary l)
 	{
 
 		score = inScore;
-		level = inLevel;
 		gameWon = inGameWon;
 		gameMode = inGameMode;
 
@@ -64,50 +62,13 @@ public class GameOver
 			g.setFont(new Font("TimesRoman", Font.PLAIN, 50));
 			if (gameMode.equals(GameMode.SURVIVAL))
 			{
-				if (score == 1)
-				{
-					g.drawString("You defeated " + score + " wave", 480, 365); // Constructs
-																				// the
-																				// text
-																				// and
-																				// draws
-																				// it
-																				// on
-																				// panel
-				} else
-				{
-					g.drawString("You defeated " + score + " waves", 480, 365); // Constructs
-																				// the
-																				// text
-																				// and
-																				// draws
-																				// it
-																				// on
-																				// panel
-				}
+				// Constructs the text and draws it on panel
+				g.drawString("You defeated " + score
+							+ ((score == 1) ? " wave" : " waves"), 480, 365);
 			} else
 			{
-				if (score == 1)
-				{
-					g.drawString("You completed " + score + " level", 480, 365); // Constructs
-																					// the
-																					// text
-																					// and
-																					// draws
-																					// it
-																					// on
-																					// panel
-				} else
-				{
-					g.drawString("You completed " + score + " levels", 480, 365); // Constructs
-																					// the
-																					// text
-																					// and
-																					// draws
-																					// it
-																					// on
-																					// panel
-				}
+				g.drawString("You completed " + score
+							+ ((score == 1) ? " level" : " levels"), 480, 365);
 			}
 
 			g.setColor(Color.BLACK); // Red colored rectangle

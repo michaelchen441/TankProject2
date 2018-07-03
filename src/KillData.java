@@ -12,8 +12,6 @@ public class KillData
 	private int yellowTanksKilled;
 	private int invisibleTanksKilled;
 
-	// GREEN, BLUE, RED, BLACK, WHITE, PINK, YELLOW, INVISIBLE
-
 	public KillData(GameMode inGameMode)
 	{
 		gameMode = inGameMode;

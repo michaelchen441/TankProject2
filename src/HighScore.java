@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -24,7 +23,6 @@ public class HighScore
 			highScoreClassic = 0;
 			writeToFile();
 		}
-
 	}
 
 	public void setHighScoreSurvival(int score)
@@ -79,49 +77,30 @@ public class HighScore
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	private boolean readFromFile()
-	{// set variables by reading in from file
+	{	// set variables by reading in from file
 		// return true if successfully read
 		// open file and read
 		File file = new File(fileName);
 
-		BufferedReader br = null;
 		try
 		{
-			br = new BufferedReader(new FileReader(file));
-		} catch (FileNotFoundException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
+			BufferedReader	br = new BufferedReader(new FileReader(file));
+			String str = br.readLine();
+			highScoreClassic = Integer.parseInt(str);
+			
+			String str2 = br.readLine();
+			highScoreSurvival = Integer.parseInt(str2);
 
-		String str = null;
-		try
-		{
-			str = br.readLine();
+			br.close();
 		} catch (IOException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
-		highScoreClassic = Integer.parseInt(str);
-
-		String str2 = null;
-		try
-		{
-			str2 = br.readLine();
-		} catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-		highScoreSurvival = Integer.parseInt(str2);
 
 		return true;
 	}
