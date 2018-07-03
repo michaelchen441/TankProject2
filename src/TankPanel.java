@@ -288,7 +288,7 @@ public class TankPanel extends JPanel
 						if (theMenu.clickedButton1(arg0.getX(), arg0.getY()))
 						{// classic game
 							inMenu = false;
-							level = 1;
+							level = 5;
 
 							killData = new KillData(GameMode.CLASSIC);
 							resourceLibrary.playBackground(resourceLibrary.K_backgroundClassic);

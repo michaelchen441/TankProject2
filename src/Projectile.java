@@ -103,8 +103,15 @@ public class Projectile
 					projectileDrawY + projectileRotateOffsetY);//-angle to adjust to y axis pointing down
 
 			g2D.transform(theAT);
-			g.drawImage(l.projectile, projectileDrawX, projectileDrawY, null);
-
+			if(speed < 4)
+			{
+				g.drawImage(l.projectile, projectileDrawX, projectileDrawY, null);
+			}
+			else
+			{
+			g.drawImage(l.projectileRed, projectileDrawX, projectileDrawY, null);
+			}
+			
 			g2D.setTransform(backupAT);
 
 			//	numDraws++;
