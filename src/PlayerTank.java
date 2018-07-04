@@ -10,8 +10,8 @@ public class PlayerTank extends Tank
 
 	public PlayerTank(int inX, int inY, Arena inArena)
 	{
+		super();
 
-		super(inArena); // Superclass constructor to receive all the walls
 		alive = true; // Living condition: alive or dead
 		type = TankType.GREEN; // Tank color and appearance - prompts a certain
 								// image of tank to be read in draw method
@@ -31,7 +31,7 @@ public class PlayerTank extends Tank
 
 	// Move function for tank; dependent on direction and inputMoveArr which
 	// depend on keys pressed
-	public void move(ResourceLibrary l)
+	public void move(ResourceLibrary l, Arena inArena)
 	{
 		// Everytime a tank moves, the number of times it has tried increments
 		numMoveTries++;
@@ -46,11 +46,11 @@ public class PlayerTank extends Tank
 		 * inputmoveArr may be [0,0]
 		 */
 
-		if (canMoveX(dir, surroundingWalls) && numMoveTries % tankSlowMultiplier == 0)
+		if (canMoveX(dir, inArena) && numMoveTries % tankSlowMultiplier == 0)
 		{
 			xLoc += inputMoveArr[0];
 		}
-		if (canMoveY(dir, surroundingWalls) && numMoveTries % tankSlowMultiplier == 0)
+		if (canMoveY(dir, inArena) && numMoveTries % tankSlowMultiplier == 0)
 		{
 			yLoc -= inputMoveArr[1];
 			// Minus equals is used because the way a panel is numbered is top
@@ -59,7 +59,7 @@ public class PlayerTank extends Tank
 
 		for (Projectile p : stockPile)
 		{
-			p.move(l);
+			p.move(l, inArena);
 		}
 		// remove any projectiles if they are nonactive to make room for new
 		// projectiles
@@ -114,11 +114,10 @@ public class PlayerTank extends Tank
 	}
 
 	// Firing method
-	public void fire(ResourceLibrary l)
+	public void fire(ResourceLibrary l, Arena inArena)
 	{
-
 		// tank firing sound
-		if (canFire)
+		if (canFire(inArena))
 		{
 			// Checks to see if the tank has any ammo left in the stockpile to
 			// fire
@@ -128,12 +127,14 @@ public class PlayerTank extends Tank
 				// System.out.println("You fired");
 				// if it has space, it will make a new projectile
 
-				Projectile p = new Projectile(turretTopX, turretTopY,
-						Math.atan2(-(targetY - turretCenterY), targetX - turretCenterX), type, arena);
+				Projectile p = new Projectile(	turretTopX,
+												turretTopY,
+												Math.atan2(-(targetY - turretCenterY), targetX - turretCenterX),
+												type);
 				stockPile.add(p);
 				l.playClip(l.K_tankFiring);
 
-				arena.addExplosion(turretTopX, turretTopY, ExplosionType.SMALL);
+				inArena.addExplosion(turretTopX, turretTopY, ExplosionType.SMALL);
 
 			}
 		}

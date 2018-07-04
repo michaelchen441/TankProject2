@@ -11,14 +11,13 @@ public class AITank extends Tank // AI Tank is a specific type of Tank
 	Point ai;// ai point
 	Point player1;// player point
 	Point ai1;// ai point
-	// s ArrayList<Wall> wallsInBetween;
-	boolean intersect;
+	
 	boolean commit;
 
-	public AITank(TankType inType, int inX, int inY, Arena inArena)
+	public AITank(TankType inType, int inX, int inY, GameMode inGameMode)
 	{
-		super(inArena); // Calls superclass constructor which takes in all walls
-						// in arena
+		super();
+
 		alive = true;
 		type = inType;
 		xLoc = inX * 50; // Each cell is 50 pixels in wide
@@ -26,9 +25,6 @@ public class AITank extends Tank // AI Tank is a specific type of Tank
 
 		ai = new Point(xLoc, yLoc);
 		ai1 = new Point(xLoc, yLoc);
-
-		// wallsInBetween = new ArrayList<Wall>();
-		intersect = false;
 
 		numMoveTries = 0;
 
@@ -50,7 +46,7 @@ public class AITank extends Tank // AI Tank is a specific type of Tank
 				tankSlowMultiplier = 4;
 				break;
 			case PINK:
-				if (arena.level == 0)
+				if (inGameMode == GameMode.SURVIVAL)
 				{
 					tankSlowMultiplier = 8;
 				} else
@@ -59,7 +55,7 @@ public class AITank extends Tank // AI Tank is a specific type of Tank
 				}
 				break;
 			case YELLOW:
-				if (arena.level == 0)
+				if (inGameMode == GameMode.SURVIVAL)
 				{
 					tankSlowMultiplier = 8;
 				} else
@@ -68,7 +64,7 @@ public class AITank extends Tank // AI Tank is a specific type of Tank
 				}
 				break;
 			case INVISIBLE:
-				if (arena.level == 0)
+				if (inGameMode == GameMode.SURVIVAL)
 				{
 					tankSlowMultiplier = 8;
 				} else
@@ -84,10 +80,10 @@ public class AITank extends Tank // AI Tank is a specific type of Tank
 	}
 
 	// Need to figure out mechanism by which AI Tank Moves
-	void move(ResourceLibrary l)
+	void move(ResourceLibrary l, Arena inArena)
 	{
 		numMoveTries++;
-		player1 = new Point(arena.playerTankLocX(), arena.playerTankLocY());
+		player1 = new Point(inArena.playerTankLocX(), inArena.playerTankLocY());
 		ai1 = new Point(xLoc, yLoc);
 		Direction dirX;
 		Direction dirY;
@@ -116,20 +112,20 @@ public class AITank extends Tank // AI Tank is a specific type of Tank
 			dirY = null;
 		}
 
-		if (canMoveX(dirX, surroundingWalls) && numMoveTries % tankSlowMultiplier == 0 && dirX == Direction.WEST
+		if (canMoveX(dirX, inArena) && numMoveTries % tankSlowMultiplier == 0 && dirX == Direction.WEST
 				&& xLoc != player1.getX())
 		{
 			xLoc += -1;
-		} else if (canMoveX(dirX, surroundingWalls) && numMoveTries % tankSlowMultiplier == 0 && dirX == Direction.EAST
+		} else if (canMoveX(dirX, inArena) && numMoveTries % tankSlowMultiplier == 0 && dirX == Direction.EAST
 				&& xLoc != player1.getX())
 		{
 			xLoc += 1;
 		}
-		if (canMoveY(Direction.NORTH, surroundingWalls) && numMoveTries % tankSlowMultiplier == 0
+		if (canMoveY(Direction.NORTH, inArena) && numMoveTries % tankSlowMultiplier == 0
 				&& dirY == Direction.NORTH && yLoc != player1.getY())
 		{
 			yLoc += -1;
-		} else if (canMoveY(Direction.SOUTH, surroundingWalls) && numMoveTries % tankSlowMultiplier == 0
+		} else if (canMoveY(Direction.SOUTH, inArena) && numMoveTries % tankSlowMultiplier == 0
 				&& dirY == Direction.SOUTH && yLoc != player1.getY())
 		{
 			yLoc += 1;
@@ -137,7 +133,7 @@ public class AITank extends Tank // AI Tank is a specific type of Tank
 
 		for (Projectile p : stockPile)
 		{
-			p.move(l);
+			p.move(l, inArena);
 
 		}
 
@@ -150,7 +146,7 @@ public class AITank extends Tank // AI Tank is a specific type of Tank
 	}
 
 	// Need to figure out mechanism by which AI Tank Fires
-	void fire(ResourceLibrary l)
+	void fire(ResourceLibrary l, Arena inArena)
 	{
 
 		// tank firing sound
@@ -164,69 +160,30 @@ public class AITank extends Tank // AI Tank is a specific type of Tank
 			}
 		}
 
-		intersect = false;
 
-		player = new Point(arena.playerTankLocX(), -arena.playerTankLocY());
-		ai = new Point(xLoc, -yLoc);
-		for (int r = 0; r < surroundingWalls.length; r++)
+		if (numMoveTries % fireSlowMultiplier == 0 && alive)
 		{
-			for (int c = 0; c < surroundingWalls[r].length; c++)
+			// if it has space, it will make a new projectile
+			if (canFire(inArena))
 			{
-				if (surroundingWalls[r][c] != null)
+				boolean intersect = intersectHighLevel(inArena);
+
+				if (intersect == false)
 				{
-					Wall temp = surroundingWalls[r][c];
-					Point point1 = new Point(temp.getXLoc(), -temp.getYLoc());
-					Point point2 = new Point(temp.getXLoc() + 50, -temp.getYLoc());
-					Point point3 = new Point(temp.getXLoc(), (-temp.getYLoc() - 50));
-					Point point4 = new Point(temp.getXLoc() + 50, (-temp.getYLoc() - 50));
-					if (intersect(player, ai, point1, point2) == true && surroundingWalls[r][c].destructable == false)
-					{
-						intersect = true;
-					} else if (intersect(player, ai, point3, point4) == true
-							&& surroundingWalls[r][c].destructable == false)
-					{
-						intersect = true;
-					} else if (intersect(player, ai, point1, point3) == true
-							&& surroundingWalls[r][c].destructable == false)
-					{
-						intersect = true;
-					} else if (intersect(player, ai, point2, point4) == true
-							&& surroundingWalls[r][c].destructable == false)
-					{
-						intersect = true;
-					}
-				}
-			}
-		}
-
-		// create projectile with input: type,
-
-		if (intersect == false)
-		{
-
-			if (numMoveTries % fireSlowMultiplier == 0 && alive)
-			{
-
-				// if it has space, it will make a new projectile
-				if (canFire)
-				{
-					Projectile p = new Projectile(turretTopX, turretTopY,
-							Math.atan2(-(targetY - turretCenterY), targetX - turretCenterX), type, arena);
+					Projectile p = new Projectile(	turretTopX,
+													turretTopY,
+													Math.atan2(-(targetY - turretCenterY), targetX - turretCenterX),
+													type);
 					stockPile.add(p);
 					l.playClip(l.K_tankFiring);
-
-					arena.addExplosion(turretTopX, turretTopY, ExplosionType.SMALL);
+	
+					inArena.addExplosion(turretTopX, turretTopY, ExplosionType.SMALL);
 				}
 			}
-
-			intersect = false;
 		}
-
-		intersect = false;
-
 	}
 
-	public int orientation(Point p, Point q, Point r)
+	private int orientation(Point p, Point q, Point r)
 	{
 		double val = (q.getY() - p.getY()) * (r.getX() - q.getX()) - (q.getX() - p.getX()) * (r.getY() - q.getY());
 
@@ -235,7 +192,50 @@ public class AITank extends Tank // AI Tank is a specific type of Tank
 		return (val > 0) ? 1 : 2; // clock or counterclock wise
 	}
 
-	public boolean intersect(Point p1, Point q1, Point p2, Point q2)
+	private boolean intersectHighLevel(Arena inArena)
+	{
+		boolean intersect = false;
+
+		player = new Point(inArena.playerTankLocX(), -inArena.playerTankLocY());	// TODO
+		ai = new Point(xLoc, -yLoc);
+		
+		Wall[][] walls = inArena.walls;
+		for (int r = 0; r < walls.length; r++)
+		{
+			for (int c = 0; c < walls[r].length; c++)
+			{
+				if (walls[r][c] != null)
+				{
+					Wall temp = walls[r][c];
+					Point point1 = new Point(temp.getXLoc(), -temp.getYLoc());
+					Point point2 = new Point(temp.getXLoc() + 50, -temp.getYLoc());
+					Point point3 = new Point(temp.getXLoc(), (-temp.getYLoc() - 50));
+					Point point4 = new Point(temp.getXLoc() + 50, (-temp.getYLoc() - 50));
+					if (intersectLowLevel(player, ai, point1, point2) == true && walls[r][c].destructable == false)
+					{
+						intersect = true;
+					} else if (intersectLowLevel(player, ai, point3, point4) == true
+							&& walls[r][c].destructable == false)
+					{
+						intersect = true;
+					} else if (intersectLowLevel(player, ai, point1, point3) == true
+							&& walls[r][c].destructable == false)
+					{
+						intersect = true;
+					} else if (intersectLowLevel(player, ai, point2, point4) == true
+							&& walls[r][c].destructable == false)
+					{
+						intersect = true;
+					}
+				}
+			}
+		}
+		
+		return intersect;
+	}
+	
+	
+	private boolean intersectLowLevel(Point p1, Point q1, Point p2, Point q2)
 	{
 
 		int o1 = orientation(p1, q1, p2);

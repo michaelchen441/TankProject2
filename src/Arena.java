@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 public class Arena
 {
-	int level; // Specifies which level and a specific arena
-	// is drawn based on which level is passed in
-	int levelCount;
+	int level; // Specifies which level and a specific arena is drawn based on which level is passed in
+	GameMode gameMode;
+
 	public Wall[][] walls; // List of all walls in the arena
 	// Every cell in the arena is can be made into a wall
 	// Remains null if no wall is created in the cell
@@ -39,10 +39,10 @@ public class Arena
 	public KillData killData;
 
 	// Arena Constructor
-	public Arena(int inLevel, int inNumWallsAcross, int inNumWallsDown, KillData inKillData)
+	public Arena(int inLevel, GameMode inGameMode, int inNumWallsAcross, int inNumWallsDown, KillData inKillData)
 	{
 		level = inLevel; // Sets up which level
-		levelCount = inLevel;
+		gameMode = inGameMode;
 
 		// Sets up arena dimensions
 		numWallsAcross = inNumWallsAcross;
@@ -95,11 +95,11 @@ public class Arena
 		{
 			for (Tank tank : tankList)
 			{
-				tank.move(l);
+				tank.move(l, this);
 				if (tank.type != TankType.GREEN)
 				{
 
-					tank.fire(l);
+					tank.fire(l, this);
 
 				}
 			}
@@ -350,7 +350,7 @@ public class Arena
 
 		TankType type = survivalRandomType();
 
-		tankList.add(new AITank(type, x, y, this));
+		tankList.add(new AITank(type, x, y, gameMode));
 
 	}
 
@@ -553,7 +553,7 @@ public class Arena
 		g.drawString("Total Score", 1018, 400);
 		g.drawLine(1025, 410, 1305, 410);
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 150));
-		String levelCompletion = "Level " + levelCount + " Completed";
+		String levelCompletion = "Level " + level + " Completed";
 		g.drawString(levelCompletion, 100, 200);
 
 	}
@@ -608,7 +608,7 @@ public class Arena
 			playerTank.setY(inRow);
 		} else
 		{
-			tankList.add(new AITank(inType, inCol, inRow, this));
+			tankList.add(new AITank(inType, inCol, inRow, gameMode));
 		}
 	}
 

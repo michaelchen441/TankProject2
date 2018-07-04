@@ -15,13 +15,13 @@ public class ArenaReader
 		rootPath = inRootPath;
 	}
 
-	public Arena readArena(int inLevel, int inNumWallsAcross, int inNumWallsDown, KillData killData)
+	public Arena readArena(int inLevel, GameMode inGameMode, int inNumWallsAcross, int inNumWallsDown, KillData killData)
 	{
 
 		int level = inLevel;
 		String fileName = rootPath + level + ".txt";
 
-		Arena arena = new Arena(level, inNumWallsAcross, inNumWallsDown, killData);
+		Arena arena = new Arena(level, inGameMode, inNumWallsAcross, inNumWallsDown, killData);
 
 		File file = new File(fileName);
 

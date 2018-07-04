@@ -263,7 +263,7 @@ public class TankPanel extends JPanel
 
 				if (!inMenu && !arenaList.get(level).transition && inGameOverScreen)
 				{
-					arenaList.get(level).playerTank.fire(resourceLibrary);
+					arenaList.get(level).playerTank.fire(resourceLibrary, arenaList.get(level));
 				}
 			}
 		});
@@ -341,7 +341,7 @@ public class TankPanel extends JPanel
 					// create projectile if its in any level
 					if (!inMenu && !arenaList.get(level).transition && !inGameOverScreen)
 					{
-						arenaList.get(level).playerTank.fire(resourceLibrary);
+						arenaList.get(level).playerTank.fire(resourceLibrary, arenaList.get(level));
 					}
 
 				}
@@ -498,19 +498,19 @@ public class TankPanel extends JPanel
 
 				ArenaReader arenaReader = new ArenaReader("src/arenas/arena");
 
-				Arena survivalArena = arenaReader.readArena(0, numWallsAcross, numWallsDown, killData);
-				Arena level1Arena = arenaReader.readArena(1, numWallsAcross, numWallsDown, killData);
-				Arena level2Arena = arenaReader.readArena(2, numWallsAcross, numWallsDown, killData);
-				Arena level3Arena = arenaReader.readArena(3, numWallsAcross, numWallsDown, killData);
-				Arena level4Arena = arenaReader.readArena(4, numWallsAcross, numWallsDown, killData);
-				Arena level5Arena = arenaReader.readArena(5, numWallsAcross, numWallsDown, killData);
-				Arena level6Arena = arenaReader.readArena(6, numWallsAcross, numWallsDown, killData);
-				Arena level7Arena = arenaReader.readArena(7, numWallsAcross, numWallsDown, killData);
-				Arena level8Arena = arenaReader.readArena(8, numWallsAcross, numWallsDown, killData);
-				Arena level9Arena = arenaReader.readArena(9, numWallsAcross, numWallsDown, killData);
-				Arena level10Arena = arenaReader.readArena(10, numWallsAcross, numWallsDown, killData);
-				Arena level11Arena = arenaReader.readArena(11, numWallsAcross, numWallsDown, killData);
-				Arena level12Arena = arenaReader.readArena(12, numWallsAcross, numWallsDown, killData);
+				Arena survivalArena = arenaReader.readArena(0, GameMode.SURVIVAL, numWallsAcross, numWallsDown, killData);
+				Arena level1Arena = arenaReader.readArena(1, GameMode.CLASSIC, numWallsAcross, numWallsDown, killData);
+				Arena level2Arena = arenaReader.readArena(2, GameMode.CLASSIC, numWallsAcross, numWallsDown, killData);
+				Arena level3Arena = arenaReader.readArena(3, GameMode.CLASSIC, numWallsAcross, numWallsDown, killData);
+				Arena level4Arena = arenaReader.readArena(4, GameMode.CLASSIC, numWallsAcross, numWallsDown, killData);
+				Arena level5Arena = arenaReader.readArena(5, GameMode.CLASSIC, numWallsAcross, numWallsDown, killData);
+				Arena level6Arena = arenaReader.readArena(6, GameMode.CLASSIC, numWallsAcross, numWallsDown, killData);
+				Arena level7Arena = arenaReader.readArena(7, GameMode.CLASSIC, numWallsAcross, numWallsDown, killData);
+				Arena level8Arena = arenaReader.readArena(8, GameMode.CLASSIC, numWallsAcross, numWallsDown, killData);
+				Arena level9Arena = arenaReader.readArena(9, GameMode.CLASSIC, numWallsAcross, numWallsDown, killData);
+				Arena level10Arena = arenaReader.readArena(10, GameMode.CLASSIC, numWallsAcross, numWallsDown, killData);
+				Arena level11Arena = arenaReader.readArena(11, GameMode.CLASSIC, numWallsAcross, numWallsDown, killData);
+				Arena level12Arena = arenaReader.readArena(12, GameMode.CLASSIC, numWallsAcross, numWallsDown, killData);
 
 				arenaList.add(survivalArena);
 				arenaList.add(level1Arena);

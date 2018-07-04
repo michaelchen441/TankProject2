@@ -28,7 +28,6 @@ public abstract class Tank
 	int turretTopY;
 	int targetX;
 	int targetY;
-	boolean canFire = true;
 
 	Direction direction;// Direction tank is facing; will use to determine where
 						// to move
@@ -40,28 +39,30 @@ public abstract class Tank
 	int numMoveTries = 0;// Number of times the tank has tried to move
 	int tankSlowMultiplier;// ex. 1 is fastest, 3 is 1/3 speed
 	
-	// TODO: remove these from class
-	Arena arena;
-	Wall[][] surroundingWalls; // Used to keep track of surrounding walls
-
-	public Tank(Arena inArena)
+	public Tank()
 	{
 		tankSlowMultiplier = 2;
 		
-		arena = inArena;
-		surroundingWalls = inArena.walls;
 		height = 28; // Fixed height for all tanks
 		width = 56; // Fixed width for all tanks
-
 	}
 
-	public void setTurretAngleByTarget(int inTargetX, int inTargetY)// being
-																	// called
-																	// every
-																	// millisecond
+	// called every cycle
+	public void setTurretAngleByTarget(int inTargetX, int inTargetY)
 	{
-		canFire = true;
-		for (Wall[] r : arena.walls)
+		targetX = inTargetX;
+		targetY = inTargetY;
+		turretCenterX = xLoc + 25; // should be width / 2
+		turretCenterY = yLoc + 25; // should be height / 2
+		turretAngle = Math.atan2(-(inTargetY - turretCenterY), inTargetX - turretCenterX);
+		turretTopX = (int) (41 * Math.cos(turretAngle)) + turretCenterX;
+		turretTopY = (int) (-41 * Math.sin(turretAngle)) + turretCenterY;
+	}
+
+	
+	public boolean canFire(Arena inArena)
+	{
+		for (Wall[] r : inArena.walls)
 		{
 			for (Wall w : r)
 			{
@@ -70,21 +71,15 @@ public abstract class Tank
 					if (w.getXLoc() <= turretTopX && w.getXLoc() + 50 >= turretTopX && w.getYLoc() <= turretTopY
 							&& w.getYLoc() + 50 >= turretTopY)
 					{
-						canFire = false;
+						return false;
 					}
 				}
 			}
 		}
-		targetX = inTargetX;
-		targetY = inTargetY;
-		turretCenterX = xLoc + 25; // should be width / 2
-		turretCenterY = yLoc + 25; // should be height / 2
-		turretAngle = Math.atan2(-(inTargetY - turretCenterY), inTargetX - turretCenterX);
-		turretTopX = (int) (41 * Math.cos(turretAngle)) + turretCenterX;
-		turretTopY = (int) (-41 * Math.sin(turretAngle)) + turretCenterY;
-
+		
+		return true;
 	}
-
+	
 	public void draw(Graphics g, ResourceLibrary l)
 	{
 		// draw projectiles
@@ -174,58 +169,57 @@ public abstract class Tank
 
 	}
 
-	public boolean canMoveX(Direction dir, Wall[][] walls)
+	public boolean canMoveX(Direction dir, Arena inArena)
 	{
 		// System.out.println("begin wall detection");
 		// If no direction is indicated, movement cannot be checked in any
 		// specific direction
 		if (dir == null)
 			return true;
-		if (dir == Direction.WEST)
-			return checkWest(walls);
-		if (dir == Direction.EAST)
-			return checkEast(walls);
-		if (dir == Direction.SOUTHEAST)
-			return checkEast(walls);
-		if (dir == Direction.SOUTHWEST)
-			return checkWest(walls);
-		if (dir == Direction.NORTHWEST)
-			return checkWest(walls);
-		if (dir == Direction.NORTHEAST)
-			return checkEast(walls);
+		
+		if ((dir == Direction.WEST) ||
+			(dir == Direction.SOUTHWEST) ||
+			(dir == Direction.NORTHWEST)	)
+			return checkWest(inArena);
+		
+		if ((dir == Direction.EAST) ||
+			(dir == Direction.SOUTHEAST) ||
+			(dir == Direction.NORTHEAST)	)
+			return checkEast(inArena);
+
 		return true;
 
 	}
 
-	public boolean canMoveY(Direction dir, Wall[][] walls)
+	public boolean canMoveY(Direction dir, Arena inArena)
 	{
 		if (dir == null)
 			return true;
-		if (dir == Direction.NORTH)
-			return checkNorth(walls);
-		if (dir == Direction.SOUTH)
-			return checkSouth(walls);
-		if (dir == Direction.SOUTHEAST)
-			return checkSouth(walls);
-		if (dir == Direction.SOUTHWEST)
-			return checkSouth(walls);
-		if (dir == Direction.NORTHWEST)
-			return checkNorth(walls);
-		if (dir == Direction.NORTHEAST)
-			return checkNorth(walls);
+
+		if ((dir == Direction.NORTH) ||
+			(dir == Direction.NORTHWEST) ||
+			(dir == Direction.NORTHEAST)	)
+			return checkNorth(inArena);
+			
+		if ((dir == Direction.SOUTH) ||
+			(dir == Direction.SOUTHWEST) ||
+			(dir == Direction.SOUTHEAST)	)
+			return checkSouth(inArena);
+		
 		return true;
 	}
 
-	private boolean checkWest(Wall[][] walls)
+	private boolean checkWest(Arena inArena)
 	{
 		// check other tanks
-		for (int i = 1; i < arena.tankList.size(); i++)
+		ArrayList<Tank>	tankList = inArena.tankList;
+		for (int i = 1; i < tankList.size(); i++)
 		{
-			if (arena.tankList.get(i).alive)
+			if (tankList.get(i).alive)
 			{
-				if (xLoc == arena.tankList.get(i).xLoc + 50)
+				if (xLoc == tankList.get(i).xLoc + 50)
 				{
-					if (yLoc >= arena.tankList.get(i).yLoc - 50 && yLoc <= arena.tankList.get(i).yLoc + 50)
+					if (yLoc >= tankList.get(i).yLoc - 50 && yLoc <= tankList.get(i).yLoc + 50)
 					{
 						return false;
 					}
@@ -233,6 +227,7 @@ public abstract class Tank
 			}
 		}
 		// check walls
+		Wall[][]	walls = inArena.walls;
 		for (int r = 0; r < walls.length; r++)
 		{
 			for (int c = 0; c < walls[r].length; c++)
@@ -257,16 +252,17 @@ public abstract class Tank
 		return true;
 	}
 
-	private boolean checkEast(Wall[][] walls)
+	private boolean checkEast(Arena inArena)
 	{
 		// checking for other tanks
-		for (int i = 1; i < arena.tankList.size(); i++)
+		ArrayList<Tank>	tankList = inArena.tankList;
+		for (int i = 1; i < tankList.size(); i++)
 		{
-			if (arena.tankList.get(i).alive)
+			if (tankList.get(i).alive)
 			{
-				if (xLoc + 50 == arena.tankList.get(i).xLoc)
+				if (xLoc + 50 == tankList.get(i).xLoc)
 				{
-					if (yLoc >= arena.tankList.get(i).yLoc - 50 && yLoc <= arena.tankList.get(i).yLoc + 50)
+					if (yLoc >= tankList.get(i).yLoc - 50 && yLoc <= tankList.get(i).yLoc + 50)
 					{
 						return false;
 					}
@@ -274,6 +270,7 @@ public abstract class Tank
 			}
 		}
 		// checking for other walls
+		Wall[][]	walls = inArena.walls;
 		for (int r = 0; r < walls.length; r++)
 		{
 			for (int c = 0; c < walls[r].length; c++)
@@ -298,21 +295,23 @@ public abstract class Tank
 		return true;
 	}
 
-	private boolean checkNorth(Wall[][] walls)
+	private boolean checkNorth(Arena inArena)
 	{
-		for (int i = 1; i < arena.tankList.size(); i++)
+		ArrayList<Tank>	tankList = inArena.tankList;
+		for (int i = 1; i < tankList.size(); i++)
 		{
-			if (arena.tankList.get(i).alive)
+			if (tankList.get(i).alive)
 			{
-				if (yLoc == arena.tankList.get(i).yLoc + 50)
+				if (yLoc == tankList.get(i).yLoc + 50)
 				{
-					if (xLoc >= arena.tankList.get(i).xLoc - 50 && xLoc <= arena.tankList.get(i).xLoc + 50)
+					if (xLoc >= tankList.get(i).xLoc - 50 && xLoc <= tankList.get(i).xLoc + 50)
 					{
 						return false;
 					}
 				}
 			}
 		}
+		Wall[][]	walls = inArena.walls;
 		for (int r = 0; r < walls.length; r++)
 		{
 			for (int c = 0; c < walls[r].length; c++)
@@ -337,22 +336,23 @@ public abstract class Tank
 		return true;
 	}
 
-	private boolean checkSouth(Wall[][] walls)
+	private boolean checkSouth(Arena inArena)
 	{
-		for (int i = 1; i < arena.tankList.size(); i++)
+		ArrayList<Tank>	tankList = inArena.tankList;
+		for (int i = 1; i < tankList.size(); i++)
 		{
-			if (arena.tankList.get(i).alive)
+			if (tankList.get(i).alive)
 			{
-				if (yLoc + 50 == arena.tankList.get(i).yLoc)
+				if (yLoc + 50 == tankList.get(i).yLoc)
 				{
-					if (xLoc >= arena.tankList.get(i).xLoc - 50 && xLoc <= arena.tankList.get(i).xLoc + 50)
+					if (xLoc >= tankList.get(i).xLoc - 50 && xLoc <= tankList.get(i).xLoc + 50)
 					{
 						return false;
 					}
 				}
 			}
 		}
-
+		Wall[][]	walls = inArena.walls;
 		for (int r = 0; r < walls.length; r++)
 		{
 			for (int c = 0; c < walls[r].length; c++)
@@ -387,11 +387,11 @@ public abstract class Tank
 	 * utilize the playerTank's location and wall locations to prompt its own
 	 * movement
 	 */
-	abstract void move(ResourceLibrary l);
+	abstract void move(ResourceLibrary l, Arena inArena);
 
 	abstract void aim();
 
-	abstract void fire(ResourceLibrary l);
+	abstract void fire(ResourceLibrary l, Arena inArena);
 
 	public int getX()
 	{
