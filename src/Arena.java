@@ -34,6 +34,10 @@ public class Arena
 	public boolean transition;
 	private int timerStartTransition;
 	private boolean startingTransition;
+	public boolean inFreeze;
+	private boolean startingFreeze;
+	private int timerStartFreeze;;
+
 	public boolean advanceLevel;
 	public Wall[][] transitionWalls;
 
@@ -57,8 +61,9 @@ public class Arena
 		timerStartTransition = 0;
 		advanceLevel = false;
 		startingTransition = false;
+		inFreeze = false;
 		transitionWalls = new Wall[numWallsDown][numWallsAcross];
-		
+
 		recentNumTanksKilled = 0;
 		killData = inKillData;
 
@@ -112,15 +117,73 @@ public class Arena
 		// draws wood panel background image
 		g.drawImage(l.background, 0, 0, null);
 
-		if (transition)
+
+		if(inFreeze)
+		{
+
+			if (startingFreeze == true)
+			{
+				timerStartFreeze = timer;// start timer so transition only
+				// lasts so long
+				startingFreeze = false;
+			}
+
+
+			System.out.println(timerStartFreeze);
+			if (timer - timerStartFreeze > 150)
+			{ // check if transition should end
+				System.out.println("timer ran out");
+				inFreeze = false;
+				transition = true;
+				startingTransition = true;
+			}
+
+			// If a cell in the arena is not null, it is considered to be a wall
+			// We call the wall's draw function here to make our wall
+			for (int r = 0; r < walls.length; r++)
+			{
+				for (int c = 0; c < walls[r].length; c++)
+				{
+					if (walls[r][c] != null)
+					{
+						walls[r][c].draw(g, l);
+					}
+				}
+			}
+
+			// Draws all the tanks in the tanklist
+			for (Tank tank : tankList)
+			{
+				tank.draw(g, l);
+			}
+			// Draws all the explosions in the explosionList
+			for (Explosion explosion : explosionList)
+			{
+				explosion.draw(g, l);
+			}
+
+
+
+		}
+		else if (transition)
 		{
 
 			if (startingTransition == true)
 			{
 				timerStartTransition = timer;// start timer so transition only
-												// lasts so long
+				// lasts so long
 				startingTransition = false;
 			}
+
+
+			System.out.println(timerStartTransition);
+			if (timer - timerStartTransition > 750)
+			{ // check if transition should end
+				System.out.println("timer ran out");
+				advanceLevel = true;// tells arena to start next level
+			}
+
+			//Draw the transition screen 
 			for (int r = 0; r < walls.length; r++)
 			{ // draws all of the walls in transition screen
 				for (int c = 0; c < walls[r].length; c++)
@@ -132,12 +195,7 @@ public class Arena
 				}
 			}
 			drawTransition(g, l);
-			System.out.println(timerStartTransition);
-			if (timer - timerStartTransition > 750)
-			{ // check if transition should end
-				System.out.println("timer ran out");
-				advanceLevel = true;// tells arena to start next level
-			}
+
 
 		} else
 		{
@@ -186,9 +244,9 @@ public class Arena
 				}
 
 				g.setFont(new Font("TimesRoman", Font.PLAIN, 50)); // Times New
-																	// Roman
-																	// font;
-																	// size 50
+				// Roman
+				// font;
+				// size 50
 				g.setColor(Color.WHITE); // white colored text
 				g.drawString("" + numTanksKilled, 660, 45); // displays score
 
@@ -241,8 +299,8 @@ public class Arena
 				}
 				if (allDead)
 				{
-					transition = true;
-					startingTransition = true;
+					inFreeze = true;
+					startingFreeze = true;
 					l.playClip(l.K_progressLevel);
 				}
 			}
@@ -438,7 +496,7 @@ public class Arena
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 45));
 
-		
+
 		int totalScore = 0;
 		totalScore += drawScoreOneLine(g, l, TankType.BLUE, 10, 272);
 		totalScore += drawScoreOneLine(g, l, TankType.RED, 20, 342);
@@ -447,8 +505,8 @@ public class Arena
 		totalScore += drawScoreOneLine(g, l, TankType.PINK, 75, 552);
 		totalScore += drawScoreOneLine(g, l, TankType.YELLOW, 75, 622);
 		totalScore += drawScoreOneLine(g, l, TankType.INVISIBLE, 125, 692);
-		
-		
+
+
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 60));
 		g.drawString(Integer.toString(totalScore), 1133, 460);
 		g.drawString("Total Score", 1018, 400);
@@ -458,7 +516,7 @@ public class Arena
 		g.drawString(levelCompletion, 100, 200);
 
 	}
-	
+
 	private int drawScoreOneLine(Graphics g, ResourceLibrary l, TankType inType, int inScaler, int inY)
 	{
 		BufferedImage tankImage = null;
@@ -498,7 +556,7 @@ public class Arena
 				turretImage = l.invisibleTurret;
 				break;
 		}
-		
+
 		if(tankImage != null && turretImage != null)
 		{
 			int xTurretRotateOffset = 10;
@@ -522,7 +580,7 @@ public class Arena
 			g2D.setTransform(backupAT);
 		}
 
-		
+
 		int numDestroyed = killData.getNumKills(inType);
 		int score = numDestroyed * inScaler;
 
@@ -531,7 +589,7 @@ public class Arena
 		g.drawString("x", 500, inY);
 
 		g.drawString("=", 800, inY);
-		
+
 		g.drawString(Integer.toString(score), 930, inY);
 
 		return score;

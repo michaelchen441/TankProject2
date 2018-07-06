@@ -14,7 +14,7 @@ public class PlayerTank extends Tank
 
 		alive = true; // Living condition: alive or dead
 		type = TankType.GREEN; // Tank color and appearance - prompts a certain
-								// image of tank to be read in draw method
+		// image of tank to be read in draw method
 		// multiples so they can be set up with the same grid as walls
 		xLoc = inX * 50;
 		yLoc = inY * 50;
@@ -24,8 +24,8 @@ public class PlayerTank extends Tank
 		targetY = 0;
 		direction = Direction.EAST;// Initial direction set to EAST
 		inputMoveArr = new int[2];// Initializes array containing necessary
-									// information about moves in x and y
-									// locations
+		// information about moves in x and y
+		// locations
 
 	}
 
@@ -33,45 +33,49 @@ public class PlayerTank extends Tank
 	// depend on keys pressed
 	public void move(ResourceLibrary l, Arena inArena)
 	{
-		// Everytime a tank moves, the number of times it has tried increments
-		numMoveTries++;
-		// if(touchingWallDirections().indexOf(Direction.NORTH)>-1)
-		Direction dir = whichDir(inputMoveArr); // Checks to see which direction
-												// to move in
-		/*
-		 * Checks to see if it is possible to move in a particular direction
-		 * given all the walls in the arena Only moves every other or even tick
-		 * to slow the movement of the tank Tank moves everytime it ticks, but
-		 * even if the move is called, it may not move anywhere because the
-		 * inputmoveArr may be [0,0]
-		 */
+		if(!inArena.inFreeze)
+		{
 
-		if (canMoveX(dir, inArena) && numMoveTries % tankSlowMultiplier == 0)
-		{
-			xLoc += inputMoveArr[0];
-		}
-		if (canMoveY(dir, inArena) && numMoveTries % tankSlowMultiplier == 0)
-		{
-			yLoc -= inputMoveArr[1];
-			// Minus equals is used because the way a panel is numbered is top
-			// down, not bottom up like a standard set of coordinte axes
-		}
+			// Everytime a tank moves, the number of times it has tried increments
+			numMoveTries++;
+			// if(touchingWallDirections().indexOf(Direction.NORTH)>-1)
+			Direction dir = whichDir(inputMoveArr); // Checks to see which direction
+			// to move in
+			/*
+			 * Checks to see if it is possible to move in a particular direction
+			 * given all the walls in the arena Only moves every other or even tick
+			 * to slow the movement of the tank Tank moves everytime it ticks, but
+			 * even if the move is called, it may not move anywhere because the
+			 * inputmoveArr may be [0,0]
+			 */
 
-		for (Projectile p : stockPile)
-		{
-			p.move(l, inArena);
-		}
-		// remove any projectiles if they are nonactive to make room for new
-		// projectiles
-		for (int i = 0; i < stockPile.size(); i++)
-		{
-			if (!stockPile.get(i).active)
+			if (canMoveX(dir, inArena) && numMoveTries % tankSlowMultiplier == 0)
 			{
-				stockPile.remove(stockPile.get(i)); // Removes missile from
-													// stockpile
-				i--;
-				// Use this to control reload time
+				xLoc += inputMoveArr[0];
+			}
+			if (canMoveY(dir, inArena) && numMoveTries % tankSlowMultiplier == 0)
+			{
+				yLoc -= inputMoveArr[1];
+				// Minus equals is used because the way a panel is numbered is top
+				// down, not bottom up like a standard set of coordinte axes
+			}
 
+			for (Projectile p : stockPile)
+			{
+				p.move(l, inArena);
+			}
+			// remove any projectiles if they are nonactive to make room for new
+			// projectiles
+			for (int i = 0; i < stockPile.size(); i++)
+			{
+				if (!stockPile.get(i).active)
+				{
+					stockPile.remove(stockPile.get(i)); // Removes missile from
+					// stockpile
+					i--;
+					// Use this to control reload time
+
+				}
 			}
 		}
 	}
@@ -89,26 +93,26 @@ public class PlayerTank extends Tank
 	{
 
 		if (temp[0] == 1 && temp[1] == 0) // Moving 1 to the right is moving
-											// east
+			// east
 			return Direction.EAST;
 		if (temp[0] == 0 && temp[1] == 1) // Moving 1 up is moving north
 			return Direction.NORTH;
 		if (temp[0] == -1 && temp[1] == 0) // Moving 1 to the left is moving
-											// west
+			// west
 			return Direction.WEST;
 		if (temp[0] == 0 && temp[1] == -1) // Moving 1 down is moving south
 			return Direction.SOUTH;
 		if (temp[0] == 1 && temp[1] == 1) // Moving 1 across and 1 up is moving
-											// northeast
+			// northeast
 			return Direction.NORTHEAST;
 		if (temp[0] == -1 && temp[1] == -1) // Moving 1 left and 1 down is
-											// moving southwest
+			// moving southwest
 			return Direction.SOUTHWEST;
 		if (temp[0] == 1 && temp[1] == -1) // Moving 1 right and 1 down is
-											// moving southeast
+			// moving southeast
 			return Direction.SOUTHEAST;
 		if (temp[0] == -1 && temp[1] == 1) // Moving 1 left and 1 up is moving
-											// northwest
+			// northwest
 			return Direction.NORTHWEST;
 		return null;
 	}
@@ -128,9 +132,9 @@ public class PlayerTank extends Tank
 				// if it has space, it will make a new projectile
 
 				Projectile p = new Projectile(	turretTopX,
-												turretTopY,
-												Math.atan2(-(targetY - turretCenterY), targetX - turretCenterX),
-												type);
+						turretTopY,
+						Math.atan2(-(targetY - turretCenterY), targetX - turretCenterX),
+						type);
 				stockPile.add(p);
 				l.playClip(l.K_tankFiring);
 

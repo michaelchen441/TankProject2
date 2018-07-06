@@ -108,7 +108,7 @@ public class Projectile
 
 	void move(ResourceLibrary l, Arena inArena)
 	{
-		if (active)
+		if (active && !inArena.inFreeze)
 		{
 			numMoveTries++;
 			if (!detectTanks(l, inArena))
@@ -141,6 +141,7 @@ public class Projectile
 
 	private boolean detectTanks(ResourceLibrary l, Arena inArena)
 	{
+
 		ArrayList<Tank> tankList = inArena.getTanks();
 		Direction dir = getDirection();
 		for (Tank t : tankList)
@@ -234,8 +235,8 @@ public class Projectile
 			}
 		}
 
-		return false;
 
+		return false;
 	}
 
 	private void detectWalls(ResourceLibrary l, Arena inArena)
