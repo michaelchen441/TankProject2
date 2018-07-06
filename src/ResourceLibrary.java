@@ -65,15 +65,9 @@ public class ResourceLibrary
 	{
 		try
 		{	
-			System.out.println(getClass());
-			System.out.println(this.getClass());
-			String fileName = "images/Background2.png";
-			System.out.println("FileName = " + fileName);			
-			URL theURL = this.getClass().getClassLoader().getResource(fileName);
-			System.out.println("theURL = " + theURL);
-			background = ImageIO.read(theURL);
 
-			background = ImageIO.read(getClass().getResource("images/Background2.png"));
+
+			background = ImageIO.read(getClass().getResource("images/background2.png"));
 			crosshair = ImageIO.read(getClass().getResource("images/crosshair.png"));
 			projectile = ImageIO.read(getClass().getResource("images/projectile.png"));
 			projectileRed = ImageIO.read(getClass().getResource("images/projectileFire1.png"));
