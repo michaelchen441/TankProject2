@@ -89,7 +89,7 @@ public abstract class Tank
 			p.draw(g, l);
 		}
 
-		if (type.equals(TankType.INVISIBLE) == false)
+		//if (type.equals(TankType.INVISIBLE) == false)
 		{
 			if (alive)
 			{
@@ -127,8 +127,8 @@ public abstract class Tank
 						turretImage = l.yellowTurret;
 						break;
 					case INVISIBLE:
-						tankImage = l.blackTank;
-						turretImage = l.pinkTurret;
+						tankImage = l.invisibleTank;
+						turretImage = l.invisibleTurret;
 						break;
 				}
 

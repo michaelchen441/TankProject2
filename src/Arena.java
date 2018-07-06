@@ -3,6 +3,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Arena
@@ -98,9 +99,7 @@ public class Arena
 				tank.move(l, this);
 				if (tank.type != TankType.GREEN)
 				{
-
 					tank.fire(l, this);
-
 				}
 			}
 		}
@@ -170,19 +169,19 @@ public class Arena
 			{
 				if (numTanksKilled < 10)
 				{
-					g.setColor(Color.BLACK); // Red colored rectangle
+					g.setColor(Color.BLACK); // Black colored rectangle
 					g.fillRect(650, 0, 50, 50); // Makes rectangle for text
 				} else if (numTanksKilled < 100)
 				{
-					g.setColor(Color.BLACK); // Red colored rectangle
+					g.setColor(Color.BLACK); // Black colored rectangle
 					g.fillRect(650, 0, 70, 50); // Makes rectangle for text
 				} else if (numTanksKilled < 1000)
 				{
-					g.setColor(Color.BLACK); // Red colored rectangle
+					g.setColor(Color.BLACK); // Black colored rectangle
 					g.fillRect(650, 0, 90, 50); // Makes rectangle for text
 				} else
 				{
-					g.setColor(Color.BLACK); // Red colored rectangle
+					g.setColor(Color.BLACK); // Black colored rectangle
 					g.fillRect(650, 0, 115, 50); // Makes rectangle for text
 				}
 
@@ -436,116 +435,18 @@ public class Arena
 
 	private void drawTransition(Graphics g, ResourceLibrary l)
 	{
-		g.drawImage(l.blueTank, 350, 230, null);
-		Graphics2D g2D = (Graphics2D) g;
-		AffineTransform backupAT = g2D.getTransform();
-		AffineTransform theAT = new AffineTransform();
-
-		int xTurretImageLoc = 350 + 15;
-		int yTurretImageLoc = 230 - 15;
-		int xTurretRotateOffset = 10;
-		int yTurretRotateOffset = 40;
-
-		// add PI/2 because turret image is upwards so that starts it horizontal
-		theAT.rotate((Math.PI * 0.5), xTurretImageLoc + xTurretRotateOffset, yTurretImageLoc + yTurretRotateOffset); 
-
-		g2D.transform(theAT);
-		g.drawImage(l.blueTurret, xTurretImageLoc, yTurretImageLoc, null);
-
-		g2D.setTransform(backupAT);
-
-		g.drawImage(l.redTank, 350, 300, null);
-		Graphics2D g2D2 = (Graphics2D) g;
-		AffineTransform backupAT2 = g2D2.getTransform();
-		AffineTransform theAT2 = new AffineTransform();
-
-		int xTurretImageLoc2 = 350 + 15;
-		int yTurretImageLoc2 = 300 - 15;
-
-		// add PI/2 because turret image is upwards so that starts it horizontal
-		theAT2.rotate((Math.PI * 0.5), xTurretImageLoc2 + xTurretRotateOffset, yTurretImageLoc2 + yTurretRotateOffset);
-
-		g2D2.transform(theAT2);
-		g.drawImage(l.redTurret, xTurretImageLoc2, yTurretImageLoc2, null);
-
-		g2D2.setTransform(backupAT2);
-
-		g.drawImage(l.blackTank, 350, 370, null);
-		Graphics2D g2D3 = (Graphics2D) g;
-		AffineTransform backupAT3 = g2D3.getTransform();
-		AffineTransform theAT3 = new AffineTransform();
-
-		int xTurretImageLoc3 = 350 + 15;
-		int yTurretImageLoc3 = 370 - 15;
-
-		// add PI/2 because turret image is upwards so that starts it horizontal
-		theAT3.rotate((Math.PI * 0.5), xTurretImageLoc3 + xTurretRotateOffset, yTurretImageLoc3 + yTurretRotateOffset);
-
-		g2D3.transform(theAT3);
-		g.drawImage(l.blackTurret, xTurretImageLoc3, yTurretImageLoc3, null);
-
-		g2D3.setTransform(backupAT3);
-
-		g.drawImage(l.whiteTank, 350, 440, null);
-		Graphics2D g2D4 = (Graphics2D) g;
-		AffineTransform backupAT4 = g2D4.getTransform();
-		AffineTransform theAT4 = new AffineTransform();
-
-		int xTurretImageLoc4 = 350 + 15;
-		int yTurretImageLoc4 = 440 - 15;
-
-		// add PI/2 because turret image is upwards so that starts it horizontal
-		theAT4.rotate((Math.PI * 0.5), xTurretImageLoc4 + xTurretRotateOffset, yTurretImageLoc4 + yTurretRotateOffset);
-
-		g2D4.transform(theAT4);
-		g.drawImage(l.whiteTurret, xTurretImageLoc4, yTurretImageLoc4, null);
-
-		g2D4.setTransform(backupAT4);
-
-		g.drawImage(l.pinkTank, 350, 510, null);
-		Graphics2D g2D5 = (Graphics2D) g;
-		AffineTransform backupAT5 = g2D5.getTransform();
-		AffineTransform theAT5 = new AffineTransform();
-
-		int xTurretImageLoc5 = 350 + 15;
-		int yTurretImageLoc5 = 510 - 15;
-
-		// add PI/2 because turret image is upwards so that starts it horizontal
-		theAT5.rotate((Math.PI * 0.5), xTurretImageLoc5 + xTurretRotateOffset, yTurretImageLoc5 + yTurretRotateOffset);
-
-		g2D5.transform(theAT5);
-		g.drawImage(l.pinkTurret, xTurretImageLoc5, yTurretImageLoc5, null);
-
-		g2D5.setTransform(backupAT5);
-
-		g.drawImage(l.yellowTank, 350, 580, null);
-		Graphics2D g2D6 = (Graphics2D) g;
-		AffineTransform backupAT6 = g2D6.getTransform();
-		AffineTransform theAT6 = new AffineTransform();
-
-		int xTurretImageLoc6 = 350 + 15;
-		int yTurretImageLoc6 = 580 - 15;
-
-		// add PI/2 because turret image is upwards so that starts it horizontal
-		theAT6.rotate((Math.PI * 0.5), xTurretImageLoc6 + xTurretRotateOffset, yTurretImageLoc6 + yTurretRotateOffset);
-
-		g2D6.transform(theAT6);
-		g.drawImage(l.yellowTurret, xTurretImageLoc6, yTurretImageLoc6, null);
-
-		g2D5.setTransform(backupAT6);
-
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 45));
 
 		
 		int totalScore = 0;
-		totalScore += drawScoreOneLine(g, TankType.BLUE, 10, 272);
-		totalScore += drawScoreOneLine(g, TankType.RED, 20, 342);
-		totalScore += drawScoreOneLine(g, TankType.BLACK, 50, 412);
-		totalScore += drawScoreOneLine(g, TankType.WHITE, 60, 482);
-		totalScore += drawScoreOneLine(g, TankType.PINK, 75, 552);
-		totalScore += drawScoreOneLine(g, TankType.YELLOW, 75, 622);
-		totalScore += drawScoreOneLine(g, TankType.INVISIBLE, 125, 692);
+		totalScore += drawScoreOneLine(g, l, TankType.BLUE, 10, 272);
+		totalScore += drawScoreOneLine(g, l, TankType.RED, 20, 342);
+		totalScore += drawScoreOneLine(g, l, TankType.BLACK, 50, 412);  
+		totalScore += drawScoreOneLine(g, l, TankType.WHITE, 60, 482); 
+		totalScore += drawScoreOneLine(g, l, TankType.PINK, 75, 552);
+		totalScore += drawScoreOneLine(g, l, TankType.YELLOW, 75, 622);
+		totalScore += drawScoreOneLine(g, l, TankType.INVISIBLE, 125, 692);
 		
 		
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 60));
@@ -558,8 +459,70 @@ public class Arena
 
 	}
 	
-	private int drawScoreOneLine(Graphics g, TankType inType, int inScaler, int inY)
+	private int drawScoreOneLine(Graphics g, ResourceLibrary l, TankType inType, int inScaler, int inY)
 	{
+		BufferedImage tankImage = null;
+		BufferedImage turretImage = null;
+		int imageY = inY - 42;
+		switch (inType){
+			case GREEN:
+				tankImage = l.greenTank;
+				turretImage = l.greenTurret;
+				break;
+			case BLUE:
+				tankImage = l.blueTank;
+				turretImage = l.blueTurret;
+				break;
+			case RED:
+				tankImage = l.redTank;
+				turretImage = l.redTurret;
+				break;
+			case BLACK:
+				tankImage = l.blackTank;
+				turretImage = l.blackTurret;
+				break;
+			case WHITE:
+				tankImage = l.whiteTank;
+				turretImage = l.whiteTurret;
+				break;
+			case PINK:
+				tankImage = l.pinkTank;
+				turretImage = l.pinkTurret;
+				break;
+			case YELLOW:
+				tankImage = l.yellowTank;
+				turretImage = l.yellowTurret;
+				break;
+			case INVISIBLE:
+				tankImage = l.invisibleTank;
+				turretImage = l.invisibleTurret;
+				break;
+		}
+		
+		if(tankImage != null && turretImage != null)
+		{
+			int xTurretRotateOffset = 10;
+			int yTurretRotateOffset = 40;
+
+			g.drawImage(tankImage, 350, imageY, null);
+			Graphics2D g2D = (Graphics2D) g;
+			AffineTransform backupAT = g2D.getTransform();
+			AffineTransform theAT = new AffineTransform();
+
+			int xTurretImageLoc = 350 + 15;
+			int yTurretImageLoc = imageY - 15;
+
+
+			// add PI/2 because turret image is upwards so that starts it horizontal
+			theAT.rotate((Math.PI * 0.5), xTurretImageLoc + xTurretRotateOffset, yTurretImageLoc + yTurretRotateOffset); 
+
+			g2D.transform(theAT);
+			g.drawImage(turretImage, xTurretImageLoc, yTurretImageLoc, null);
+
+			g2D.setTransform(backupAT);
+		}
+
+		
 		int numDestroyed = killData.getNumKills(inType);
 		int score = numDestroyed * inScaler;
 
