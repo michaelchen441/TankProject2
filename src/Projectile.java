@@ -143,99 +143,33 @@ public class Projectile
 	{
 
 		ArrayList<Tank> tankList = inArena.getTanks();
-		Direction dir = getDirection();
 		for (Tank t : tankList)
 		{
 			if (t.alive)
 			{
-				//works great
-				if (dir == Direction.EAST || dir == Direction.NORTHEAST || dir == Direction.SOUTHEAST)
+				int	tankHalfWidth = t.width / 2;
+				double	tankHitTolerance = tankHalfWidth + speed;
+				int	tankCenterX = t.getX() + tankHalfWidth;
+				int	tankCenterY = t.getY() + tankHalfWidth;
+				
+				if ((Math.abs(xLoc - tankCenterX) < tankHitTolerance) &&
+					(Math.abs(yLoc - tankCenterY) < tankHitTolerance))
 				{
-					if (xLoc <= t.getX() + speed && xLoc >= t.getX() - speed)
+					active = false;
+					inArena.addExplosion((int) xLoc, (int) yLoc, ExplosionType.MEDIUM); //call arena addExplosion
+					t.alive = false;
+					inArena.killData.addKill(t.type);
+					if (inArena.level == 0 && !t.type.equals(TankType.GREEN))
 					{
-						if (yLoc >= t.getY() && yLoc <= t.getY() + 50)
-						{
-							active = false;
-							inArena.addExplosion((int) xLoc, (int) yLoc, ExplosionType.MEDIUM); //call arena addExplosion
-							t.alive = false;
-							inArena.killData.addKill(t.type);
-							if (inArena.level == 0 && !t.type.equals(TankType.GREEN))
-							{
-								l.playClip(l.K_progressLevel);
-							}
-							l.playClip(l.K_proj_to_aiTank);
-							inArena.addExplosion(t.getX(), t.getY(), ExplosionType.LARGE); //call arena addExplosion
-							return true;
+						l.playClip(l.K_progressLevel);
+					}
+					l.playClip(l.K_proj_to_aiTank);
+					inArena.addExplosion(t.getX(), t.getY(), ExplosionType.LARGE); //call arena addExplosion
+					return true;
 
-						}
-					}
-
-				}
-				if (dir == Direction.NORTH || dir == Direction.NORTHEAST || dir == Direction.NORTHWEST)
-				{
-					if (yLoc >= t.getY() - speed + 50 && yLoc <= t.getY() + speed + 50)
-					{
-						if (xLoc >= t.getX() - speed && xLoc <= t.getX() + 50 + speed)
-						{
-							active = false;
-							inArena.addExplosion((int) xLoc, (int) yLoc, ExplosionType.MEDIUM); //call arena addExplosion
-							t.alive = false;
-							inArena.killData.addKill(t.type);
-							if (inArena.level == 0 && !t.type.equals(TankType.GREEN))
-							{
-								l.playClip(l.K_progressLevel);
-							}
-							l.playClip(l.K_proj_to_aiTank);
-							inArena.addExplosion(t.getX(), t.getY(), ExplosionType.LARGE); //call arena addExplosion
-							return true;
-						}
-					}
-				}
-				if (dir == Direction.SOUTH || dir == Direction.SOUTHWEST || dir == Direction.SOUTHEAST)
-				{
-					if (yLoc >= t.getY() - speed && yLoc <= t.getY() + speed)
-					{
-						if (xLoc >= t.xLoc - speed && xLoc <= t.xLoc + 50 + speed)
-						{
-							active = false;
-							inArena.addExplosion((int) xLoc, (int) yLoc, ExplosionType.MEDIUM); //call arena addExplosion
-							t.alive = false;
-							inArena.killData.addKill(t.type);
-							if (inArena.level == 0 && !t.type.equals(TankType.GREEN))
-							{
-								l.playClip(l.K_progressLevel);
-							}
-							l.playClip(l.K_proj_to_aiTank);
-							inArena.addExplosion(t.getX(), t.getY(), ExplosionType.LARGE); //call arena addExplosion
-							return true;
-						}
-					}
-				}
-				//works great
-				if (dir == Direction.WEST || dir == Direction.NORTHWEST || dir == Direction.SOUTHWEST)
-				{
-					if (xLoc <= t.getX() + speed + 50 && xLoc >= t.getX() - speed + 50)
-					{
-						if (yLoc >= t.yLoc && yLoc <= t.yLoc + 50)
-						{
-							active = false;
-							inArena.addExplosion((int) xLoc, (int) yLoc, ExplosionType.MEDIUM); //call arena addExplosion
-							t.alive = false;
-							inArena.killData.addKill(t.type);
-							if (inArena.level == 0 && !t.type.equals(TankType.GREEN))
-							{
-								l.playClip(l.K_progressLevel);
-							}
-							l.playClip(l.K_proj_to_aiTank);
-							inArena.addExplosion(t.getX(), t.getY(), ExplosionType.LARGE); //call arena addExplosion
-							return true;
-						}
-					}
 				}
 			}
 		}
-
-
 		return false;
 	}
 
@@ -246,10 +180,32 @@ public class Projectile
 		Direction dir = getDirection();
 		Wall[][] walls = inArena.walls;
 
-		for (int r = 0; r < walls.length; r++)
-		{
-			for (int c = 0; c < walls[r].length; c++)
+		int rProj = (int)(yLoc / 50 );
+		int cProj = (int)(xLoc / 50 );
+		if (rProj < 1){
+			rProj = 1;
+		}
+		if (rProj > 16){
+			rProj = 16;
+		}
+		if (cProj < 1){
+			cProj = 1;
+		}
+		if (cProj > 28){
+			cProj = 28;
+		}
+	
+		//OLD code
+//		for (int r = 0; r < walls.length; r++)
+//		{
+//			for (int c = 0; c < walls[r].length; c++)
+//			{
+		//NEW code
+		for (int r = (rProj - 1); r < (rProj + 2); r++)
 			{
+				for (int c = (cProj - 1); c < (cProj + 2); c++)
+				{
+		//NO change
 				if (walls[r][c] != null)
 				{
 					if (dir != null)
@@ -327,11 +283,11 @@ public class Projectile
 								if ((int) xLoc > (c * 50) && (int) xLoc < (c * 50) + 50)
 								{
 									numWallHits++;
+									angle = angle * -1;
 									if (numWallHits <= maxNumWallHits && !walls[r][c].destructable)
 									{
 										l.playClip(l.K_projRicochet);
 									}
-									angle = angle * -1;
 									if (angle < 0)
 									{
 										angle += 2 * Math.PI;
@@ -384,21 +340,17 @@ public class Projectile
 		{
 			for (Projectile p : t.stockPile)
 			{
-				if (p.equals(this))
+				if (!p.equals(this))		// don't check against self
 				{
+					int	projectileCollisionTolerance = 5;
 
-				} else
-				{
-					if (xLoc - 5 < p.xLoc && xLoc + 5 > p.xLoc)
+					if (Math.abs(xLoc - p.xLoc) < projectileCollisionTolerance &&
+							Math.abs(yLoc - p.yLoc) < projectileCollisionTolerance)
 					{
-						if (yLoc - 5 < p.yLoc && yLoc + 5 > p.yLoc)
-						{
-							active = false;
-							p.active = false;
-						}
-
+						// mark both projectiles to be destroyed
+						active = false;
+						p.active = false;
 					}
-
 				}
 			}
 		}
